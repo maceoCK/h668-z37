@@ -261,11 +261,54 @@ objective to $0$ (a verified lift) within $18$ steps. On $\mathrm{srg}(333,166,8
 of the $634$ skeletons with $8192$ chains and replica exchange per skeleton ($\approx 3.7\times10^6$ chains
 total), the objective plateaued at $\approx 3.9\times10^5$ with no lift found.
 
+\paragraph{The order-2 residue: a sharper ceiling.} The single case Theorem~\ref{thm:cyclo} leaves as a
+sample is $|H|=2$ (negation-invariant blocks), where the orbit-matrix methods are powerless because order
+$2$ imposes no congruence. It is worth recording how far the structure can in fact be pushed, and why it
+then resists. Since $-1$ is a quadratic residue mod $37$, negation-invariance of every block makes each
+character matrix $M_t$ a \emph{real} symmetric $9\times9$ matrix with eigenvalues in $\{\theta,\tau\}$,
+$\theta,\tau=(-1\pm3\sqrt{37})/2$; write $a_t$ for the $\theta$-multiplicity of $M_t$. The Galois group
+$\Z_{37}^\ast/\{\pm1\}$ permutes the $M_t$ and acts on $\sqrt{37}$ through the Legendre symbol, forcing
+$a_t=a$ on the quadratic residues and $9-a$ on the non-residues for a single integer $a$.
+
+\begin{proposition}[Order-2 multiplicity reduction]\label{prop:order2}
+For a negation-invariant $\Z_{37}$-symmetric $\mathrm{srg}(333,166,82,83)$, the common residue-character
+$\theta$-multiplicity satisfies $a\in\{4,5\}$.
+\end{proposition}
+\begin{proof}[Proof sketch]
+Expanding $\operatorname{tr}M_1=a\theta+(9-a)\tau$ in the integral basis $\eta_g=\zeta_{37}^{\,g}
++\zeta_{37}^{-g}$ via the quadratic Gauss sum $\sqrt{37}=\sum_{g=1}^{18}\bigl(\tfrac{g}{37}\bigr)\eta_g$
+identifies the diagonal pair-counts $N_g:=\#\{i:\{g,-g\}\subseteq D[i][i]\}$ as $N_g=3a-9$ on the nine
+residue pairs and $N_g=18-3a$ on the nine non-residue pairs. Non-negativity $0\le N_g\le 9$ gives
+$a\in\{3,4,5,6\}$. For $a\in\{3,6\}$ the counts are extremal $\{0,9\}$, forcing every diagonal block to
+equal $Q^{\mp}$ (all non-residues, resp.\ all residues) and hence the orbit matrix to have constant
+diagonal $(18,\dots,18)$; an exhaustive backtracking search --- complete under the $S_9$ orbit-relabeling
+symmetry ($1.9\times10^{8}$ nodes, corroborated to $9\times10^{10}$ nodes by an independent reduction) ---
+finds \emph{no} admissible orbit matrix with constant diagonal $18$. Hence $a\in\{4,5\}$. The $N_g$ identity
+was validated on the negation-invariant graphs $P(13)$ and the $25$-orbit Paley graph of $\mathrm{GF}(5^3)$.
+\end{proof}
+
+That the cases $a\in\{4,5\}$ then resist all of our tools is structural, not accidental. In the group ring
+$\Z[\Z_{37}]$ (generator $X$) the strong-regularity identity reads $B^2+B-83\,I_9=83\,T\,E_9$, where
+$B=(B_{ij})$ has the block indicators as entries, $E_9$ is all-ones, and $T=\sum_{g}X^{g}$ is supported on
+the \emph{principal} character. Every character-weighted (Gauss-/Jacobi-sum) functional therefore collapses
+to a plain cardinality already fixed by the orbit matrix; and since $83\equiv 9\pmod{37}$ has odd order
+$9$ with $-1\notin\langle 83\rangle$, no self-conjugacy/multiplier obstruction applies. Moreover negation
+invariance makes $\varphi:(i,g)\mapsto(i,-g)$ a graph automorphism commuting with $A$, and as $A^2$ is
+affine in $\{I,A,J\}$, every word in $\{A,\varphi\}$ reduces to an affine combination of
+$\{I,A,J,\varphi,\varphi A\}$, whose traces are the fixed values $\{333,0,333,9,162\}$. Consequently
+\emph{no} trace-linear invariant --- spectral, character-theoretic, involution-based, or association-scheme
+/Krein --- separates a hypothetical solution from the orbit-matrix data: any obstruction must be genuinely
+non-linear in the $\{0,1\}$ block indicators, i.e.\ it resides in the lift feasibility itself, which is the
+order-$668$ problem. This is why the order-$2$ case is the true residue, and why we leave it open.
+
 \section{Discussion}
 We distinguish what is proven from what is evidence.
 \emph{Proven:} Proposition~\ref{prop:ninth} (square-divisor filters do not help $\mathrm{LP}(333)$);
 Proposition~\ref{prop:char} (the reduction); Theorem~\ref{thm:cyclo} (no cyclotomically-structured
-$\Z_{37}$ lift over the enumerated skeletons). \emph{Evidence:} the parallel-tempering plateau is a strong
+$\Z_{37}$ lift, complete for every multiplier subgroup of order $\ge3$);
+Proposition~\ref{prop:order2} (the remaining order-$2$ case is confined to residue-multiplicity
+$a\in\{4,5\}$, and provably resists every trace-linear obstruction). \emph{Evidence:} the parallel-tempering
+plateau is a strong
 indication --- from a search demonstrably able to find lifts when they exist --- that no unstructured
 $\Z_{37}$-symmetric lift exists either, though it is not a proof. Taken together with
 Lemma~\ref{lem:cayley}, this makes a $\Z_{37}$-symmetric $\mathrm{srg}(333,166,82,83)$ unlikely, and

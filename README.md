@@ -30,10 +30,22 @@ The paper is in [`paper/h668_z37.pdf`](paper/h668_z37.pdf) (source `paper/h668_z
      enumeration (no node cap, 1.99×10¹⁰ nodes) finds **exactly 960** — but *none* of the
      960 admits an order-3-invariant lift (all UNSAT), so no order-3-invariant graph exists.
 
-   Only `|H| = 2` remains a *sample*: order 2 imposes no congruence on the orbit matrix
-   (every `R` is compatible, and the admissible set is not finitely closed-out), so it is
-   ruled out over the 634 enumerated skeletons rather than completely. Large-scale GPU
-   parallel-tempering finds no unstructured lift either.
+   Only `|H| = 2` (negation-invariant blocks) remains a *sample* rather than a complete
+   proof: order 2 imposes no congruence on the orbit matrix, so it is ruled out over the
+   634 enumerated skeletons. Large-scale GPU parallel-tempering finds no unstructured lift
+   either.
+4. **The order-2 residue — a sharper ceiling** (paper §4, Prop. order2). The remaining
+   order-2 case is *narrowed and explained*:
+   - **Narrowing:** a Gauss-sum/Galois argument pins the θ-multiplicity of each
+     residue-character to `a ∈ {3,4,5,6}`; `a ∈ {3,6}` force a constant-18 orbit-matrix
+     diagonal, which an exhaustive search (sound `S₉` symmetry break; 1.9×10⁸ nodes,
+     corroborated to 9×10¹⁰) proves **does not exist** — so `a ∈ {4,5}`.
+   - **Why it resists (two meta-theorems):** the group-ring RHS lives entirely on the
+     principal character (no character/Gauss-sum/multiplier obstruction can fire; `83`
+     isn't self-conjugate mod 37), and the negation involution collapses *every*
+     trace-linear functional (spectral, Krein, scheme, counting) to five fixed values.
+     Any genuine obstruction must be **non-linear** in the {0,1} indicators — i.e. the
+     lift feasibility itself, which is the order-668 open problem. (Order 2 stays open.)
 
 ## Repository layout
 
@@ -46,6 +58,11 @@ code/         all validated machinery + data + reference notes
   conference_orbit_all.cpp   full orbit-matrix enumerator (streams skeletons)
   orbit3_enum.cpp           ★ order-3-compatible enumerator → exactly 960 skeletons (Thm 1(b))
   order3_sweep.py           ★ exhaustive order-3-invariant lift sweep over the 960 (all UNSAT)
+  order2_spectral.py        order-2 (negation-invariant) lift with N_g/a∈{4,5} pruning
+  uniform18_enum.cpp        ★ proves no constant-18 orbit matrix exists → a∈{3,6} eliminated
+  uniform18_maxbreak.cpp    independent re-check (different sound symmetry break)
+  order2_combinatorial.py   the involution-collapse / flat-RHS meta-theorem checks
+  modal_order2.py           Modal driver for the a∈{4,5} order-2 frontier search
   orbit_matrix_search.py    CP-SAT model for admissible 9×9 orbit matrices
   orbit_compat.py           ★ COMPLETE cyclotomic closure (Theorem 1(a)) — the key result
   cyclo_complete.py         orbit-matrix-free cyclotomic check (Theorem 1(c))
