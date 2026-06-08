@@ -62,12 +62,13 @@ with $\PAF_u(k)+\PAF_v(k)=-2$ for all $k\not\equiv 0$. An LP of length $\ell$ yi
 of order $2\ell+2$ via the two-circulant-core construction~\cite{fgs}. For $H(668)$ one needs
 $\ell=333=9\cdot 37$; $\mathrm{LP}(333)$ is open~\cite{kk-mod3,balonin}.
 
-\paragraph{Conference graphs.} A symmetric conference matrix $C$ of order $m$ ($C=C^\top$, zero diagonal,
-$\pm1$ off-diagonal, $C^2=(m-1)I$) of order $m=334$ yields $H(668)$ via
+\paragraph{Conference graphs.} A symmetric conference matrix $C$ of order $m=334$ ($C=C^\top$, zero
+diagonal, $\pm1$ off-diagonal, $C^2=(m-1)I$) yields $H(668)$ via
 $H=\left[\begin{smallmatrix}C+I & C-I\\ C-I & -C-I\end{smallmatrix}\right]$, and $C(334)$ is equivalent to
 a regular two-graph on $334$ points, whose descendant is the strongly regular graph
 $\Gamma=\mathrm{srg}(333,166,82,83)$~\cite{seidel,brouwer}. The parameter set $(333,166,82,83)$ is listed
-as open in Brouwer's tables.
+as open in Brouwer's tables, and no catalogued conference-matrix construction (Paley; Mathon's
+$q^2(q+2)+1$ family~\cite{mathon}) reaches order $334$.
 
 \paragraph{Prior obstructions.} It is known that no \emph{group-developed} (Cayley) conference graph on
 $333$ vertices exists: its nontrivial eigenvalues are $(-1\pm\sqrt{333})/2$ with $\sqrt{333}=3\sqrt{37}\in
@@ -213,10 +214,10 @@ R=\begin{psmallmatrix}
 \paragraph{Exact lift (SAT).} The lift is equivalent to the convolution system, for all $i,j\in\Z_9$,
 $g\in\Z_{37}$,
 \[
-\sum_{i'}\bigl(D[i][i']\ast D[i'][j]\bigr)(g)=83+(k-\mu-83)[i{=}j,g{=}0]+(\lambda-\mu)[g\in D[i][j]],
+\sum_{i'}\bigl(D[i][i']\ast D[i'][j]\bigr)(g)=\mu+(k-\mu)[i{=}j,g{=}0]+(\lambda-\mu)[g\in D[i][j]],
 \]
-which we encode in a Boolean SAT/CP model (membership variables, cardinality, symmetry, and a
-gauge-fixing that removes the $37^{8}$ per-orbit base-point symmetry). The encoding was validated by
+which we encode in a Boolean SAT/CP model~\cite{satcas} (membership variables, cardinality, symmetry,
+and a gauge-fixing that removes the $37^{8}$ per-orbit base-point symmetry). The encoding was validated by
 reconstructing $P(9)$ and $P(25)$.
 
 Call a $\Z_{37}$-symmetric $\mathrm{srg}(333,166,82,83)$ \emph{$H$-cyclotomic} if every connection set is a
@@ -313,8 +314,8 @@ indication, from a search demonstrably able to find lifts when they exist, that 
 $\Z_{37}$-symmetric lift exists either, though it is not a proof. Taken together with
 Lemma~\ref{lem:cayley}, this makes a $\Z_{37}$-symmetric $\mathrm{srg}(333,166,82,83)$ unlikely, and
 focuses any future construction of $H(668)$ on (a) genuinely asymmetric conference graphs, (b) automorphisms
-of other orders (for which the orbit-matrix block size grows), or (c) the Legendre-pair / cocyclic routes,
-where Section~\ref{sec:lp} clarifies which spectral tools do and do not help.
+of other orders (for which the orbit-matrix block size grows), or (c) the Legendre-pair / cocyclic
+routes~\cite{adt}, where Section~\ref{sec:lp} clarifies which spectral tools do and do not help.
 
 \section*{Reproducibility}
 All code (the $\Z_{37}$ reduction and verifier, the orbit-matrix enumerator and its order-$3$-compatible
