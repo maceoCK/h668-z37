@@ -40,14 +40,14 @@ cubic field $\Q(\zeta_9)^+$ but is implied by the cube-root condition. Second, a
 fixed-point-free automorphism of order $37$ (which the eigenvalue-field obstruction \emph{permits},
 unlike the group-developed case), we reduce $\mathrm{srg}(333,166,82,83)$ to a $9\times 9$ array of
 circulants over $\Z_{37}$, with the strong-regularity identity equivalent to a per-character condition
-$M_t^2+M_t-83I=0$ on $9\times 9$ Hermitian matrices over $\Z[\zeta_{37}]$. Third, we prove by SAT that
-\emph{no} cyclotomically-structured (Paley-type) such graph exists for $7$ of the $8$ proper nontrivial
-multiplier subgroups: completely for every subgroup of order $\ge 3$ (for the six orders $\ge 4$
-independently of any orbit matrix, and for order $3$ by exhausting the $960$ compatible orbit matrices);
-for the last (order $2$) we verify nonexistence over $634$ enumerated skeletons. We
-also give large-scale parallel-tempering evidence (a search validated to reconstruct
-$\mathrm{srg}(25,12,5,6)$) that none admits an unstructured lift either. These results narrow the search for
-$H(668)$ and we release validated open-source machinery for the reduction.
+$M_t^2+M_t-83I=0$ on $9\times 9$ Hermitian matrices over $\Z[\zeta_{37}]$. Third, we prove by two lift-free
+arguments that \emph{no} cyclotomically-structured (Paley-type) such graph exists for the $6$ proper
+nontrivial multiplier subgroups of order $\ge 4$; we completely enumerate the $2901$ admissible orbit
+matrices (the necessary skeletons), and reduce the two finest multipliers $|H|\in\{2,3\}$ to a per-skeleton
+cyclotomic lift that we leave open, with structural evidence (a $\theta$-multiplicity confined to
+$\{4,5\}$, and resistance to every trace-linear obstruction) and parallel-tempering evidence (a search
+validated to reconstruct $\mathrm{srg}(25,12,5,6)$) both pointing to nonexistence. These results narrow the
+search for $H(668)$ and we release validated open-source machinery for the reduction.
 \end{abstract}
 
 \section{Introduction}
@@ -185,17 +185,14 @@ graphs $P(9),P(25),P(49)$ in block-circulant form, confirming agreement of the d
 tests.
 
 \section{Computational attack and results}\label{sec:comp}
-\paragraph{Orbit-matrix census.} A backtracking search with knapsack-tight pruning enumerated $634$
-distinct admissible orbit matrices $R$, over which the order-$2$ sweep of Theorem~\ref{thm:cyclo}(d)
-ranges; a deeper search (per-diagonal cap $4\times10^{9}$ nodes) confirms at least $1678$ admissible
-skeletons, with the true number larger still (a few diagonals have search trees exceeding $4\times10^{9}$
-nodes and were not exhausted). The skeleton thus exists in abundance, which is exactly why the complete,
-enumeration-free arguments of Theorem~\ref{thm:cyclo}(a) matter: they sidestep the (apparently intractable)
-full enumeration. The full enumeration \emph{does} become tractable once a coset congruence is imposed:
-restricting to the order-$3$-compatible alphabet (diagonal in $\{12,18,24\}$, off-diagonal $\equiv0,1
-\bmod 3$) collapses the search to exactly $960$ orbit matrices, enumerated to completion, the finite set
-that powers Theorem~\ref{thm:cyclo}(b). The remaining obstruction is the \emph{lift} to connection sets
-satisfying Proposition~\ref{prop:char}. A representative skeleton
+\paragraph{Orbit-matrix census.} A backtracking search with knapsack-tight pruning, made complete by a
+sound symmetry reduction (within each maximal equal-diagonal group of orbits, sort by connection to a fixed
+orbit), enumerates \emph{all} admissible orbit matrices up to orbit relabeling: exactly $2901$
+representatives, with every diagonal class exhausted. (An earlier run without the reduction had confirmed
+$\ge1678$ before several highly symmetric diagonals exceeded a $4\times10^{9}$-node cap.) These $2901$ form
+the complete set of necessary skeletons, so the lift-free arguments of Theorem~\ref{thm:cyclo} apply to all
+of them; the remaining obstruction for the fine multipliers is the \emph{lift} to connection sets satisfying
+Proposition~\ref{prop:char} (Remark~\ref{rem:open}). A representative skeleton
 (row sums $166$, $\operatorname{tr}=162$, spectrum $\{166,\,r^{4},\,s^{4}\}$) is
 \[
 R=\begin{psmallmatrix}
@@ -216,44 +213,48 @@ $g\in\Z_{37}$,
 \[
 \sum_{i'}\bigl(D[i][i']\ast D[i'][j]\bigr)(g)=\mu+(k-\mu)[i{=}j,g{=}0]+(\lambda-\mu)[g\in D[i][j]],
 \]
-which we encode in a Boolean SAT/CP model~\cite{satcas} (membership variables, cardinality, symmetry,
-and a gauge-fixing that removes the $37^{8}$ per-orbit base-point symmetry). The encoding was validated by
-reconstructing $P(9)$ and $P(25)$.
+which we encode in a Boolean SAT/CP model~\cite{satcas} (membership variables, cardinality, symmetry). For
+the \emph{general} (unstructured) lift a base-point gauge-fixing removes the $37^{8}$ per-orbit symmetry,
+and the encoding so validated reconstructs $P(9),P(25)$. We caution that this gauge-fixing is
+\emph{unsound} once a multiplier (cyclotomic) constraint is added (Remark~\ref{rem:open}); the cyclotomic
+results of Theorem~\ref{thm:cyclo} therefore rely only on the gauge-free arguments (a),(b).
 
 Call a $\Z_{37}$-symmetric $\mathrm{srg}(333,166,82,83)$ \emph{$H$-cyclotomic} if every connection set is a
 union of cosets of a multiplier subgroup $H\le\Z_{37}^\ast$ (the Paley-type structure). The next theorem
-rules these out for $7$ of the $8$ proper nontrivial subgroups completely (every subgroup of order
-$\ge 3$), and for the remaining one (order $2$) over our enumerated skeletons.
+rules these out completely for the $6$ proper nontrivial subgroups of order $\ge 4$, by two lift-free
+arguments (no base-point gauge); the two finest cases $|H|\in\{2,3\}$ reduce to a cyclotomic lift that we
+leave open (Remark~\ref{rem:open}).
 
-\begin{theorem}[No cyclotomically-structured lift]\label{thm:cyclo}
-No $H$-cyclotomic $\mathrm{srg}(333,166,82,83)$ exists in the following cases.
+\begin{theorem}[No cyclotomically-structured lift, coarse multipliers]\label{thm:cyclo}
+No $H$-cyclotomic $\mathrm{srg}(333,166,82,83)$ exists for $|H|\in\{4,6,9,12,18,36\}$.
 \begin{enumerate}[label=(\alph*),leftmargin=2em]
-\item \emph{(Complete, via the orbit matrix; $|H|\in\{4,6,9,12,18,36\}$.)} An $H$-cyclotomic graph forces
-its $9\times9$ orbit matrix to have $H$-coset-compatible cardinalities: off-diagonal $R[i][j]\equiv 0$
-or $1\ (\mathrm{mod}\ |H|)$ (the residue records whether $0\in D[i][j]$), and diagonal $R[i][i]\equiv 0\
-(\mathrm{mod}\ |H|)$ if $-1\in H$ else $\pmod{2|H|}$. No integer matrix meets these together with the
-orbit-matrix identity $R^2+R-83I=3071J$ (SAT-certified \textsc{unsat}); hence no such graph exists, for
-\emph{any} orbit matrix.
-\item \emph{(Complete, via exhaustive lift; $|H|=3$.)} Here $H=\{1,10,26\}$ is not closed under negation,
-forcing $R[i][i]\equiv 0\pmod 6$ and $R[i][j]\equiv 0,1\pmod 3$. Unlike the cases in (a), such orbit
-matrices \emph{do} exist: a complete backtracking enumeration (no node cap, $1.99\times10^{10}$ nodes)
-finds exactly $960$, all with diagonal $(12,12,18,18,18,18,18,24,24)$. For \emph{every one} of the $960$,
-the orbit-matrix-fixed order-$3$-invariant lift is \textsc{unsat}; hence no order-$3$-invariant graph
-exists.
-\item \emph{(Complete, independent confirmation; $|H|\in\{12,18,36\}$.)} The stronger orbit-matrix-free
-system (every block $H$-invariant, the graph $166$-regular, $R$ unconstrained) is directly
-\textsc{unsat}.
-\item \emph{(Over enumerated skeletons; $|H|=2$.)} For each of the $634$ enumerated orbit-matrix skeletons,
-the order-$2$-invariant lift is \textsc{unsat}. (Order $2$ imposes no congruence on the orbit matrix: every
-$R$ is coset-compatible, so neither the argument of (a) nor the finite enumeration of (b) applies, and the
-result is a sample rather than a complete proof.)
+\item \emph{(Via the orbit matrix.)} An $H$-cyclotomic graph forces its $9\times9$ orbit matrix to have
+$H$-coset-compatible cardinalities: off-diagonal $R[i][j]\equiv 0$ or $1\ (\mathrm{mod}\ |H|)$ (the residue
+records whether $0\in D[i][j]$), and diagonal $R[i][i]\equiv 0\ (\mathrm{mod}\ |H|)$ if $-1\in H$ else
+$\pmod{2|H|}$. No integer matrix meets these together with the orbit-matrix identity $R^2+R-83I=3071J$
+(SAT-certified \textsc{unsat}); hence no such graph exists, for \emph{any} orbit matrix.
+\item \emph{(Independent confirmation, $|H|\in\{12,18,36\}$.)} The stronger orbit-matrix-free system (every
+block $H$-invariant, the graph $166$-regular, $R$ unconstrained) is directly \textsc{unsat}.
 \end{enumerate}
+Both arguments are lift-free, hence independent of any base-point gauge. They were validated by
+reconstructing the Paley graphs $P(9),P(25),P(49)$ (orbit-matrix-free) and $P(13),P(17)$ (orbit matrix).
 \end{theorem}
 
-Thus no Paley-type $\Z_{37}$-symmetric $\mathrm{srg}(333,166,82,83)$ exists for \emph{any} multiplier
-subgroup of order $\ge 3$, and none of order $2$ over the enumerated skeletons. The SAT encodings were
-validated by reconstructing the Paley single circulants $P(13),P(17)$ under their quadratic-residue
-multiplier, and the orbit-matrix-free encoding by reconstructing $P(9),P(25),P(49)$.
+\begin{remark}[The fine multipliers $|H|\in\{2,3\}$ are open]\label{rem:open}
+The orbit-matrix argument (a) cannot reach $|H|\in\{2,3\}$: order $2$ imposes no congruence (every $R$ is
+compatible), and the order-$3$-compatible orbit matrices \emph{do} exist (a complete backtracking
+enumeration finds exactly $960$, all with diagonal $(12,12,18,18,18,18,18,24,24)$). Both cases reduce to the
+per-orbit-matrix cyclotomic lift over the complete set of $2901$ admissible orbit matrices. We do not
+resolve this lift. A base-point gauge-fixing (forcing $0\in D[0][i]$) that greatly accelerates the
+\emph{general} lift is \emph{unsound} under a multiplier constraint: a multiplier-invariant set shifted by
+$c\neq0$ is no longer invariant (as $(\mathrm{mult}-1)c=0\Rightarrow c=0$), so the cyclotomic ansatz has no
+base-point freedom, and forcing $0\in D[0][i]$ wrongly rejects even the genuine negation-invariant Paley
+graph $P(25)$. Without that gauge, neither the element-level nor a coset-level SAT encoding decides a single
+$|H|\in\{2,3\}$ instance within $30$ minutes. We therefore leave $|H|\in\{2,3\}$ open. The parallel-tempering
+evidence below points to nonexistence, and for $|H|=2$ Proposition~\ref{prop:order2} confines a hypothetical
+solution to $\theta$-multiplicity $a\in\{4,5\}$ and the discussion shows it resists every trace-linear
+obstruction; but a proof remains open.
+\end{remark}
 
 \paragraph{Unstructured lift (parallel tempering).} For the general (unstructured) lift we ran a batched
 GPU parallel-tempering search minimizing $\sum_{t\neq0}\lVert M_t^2+M_t-83I\rVert_F^2$, which is $0$ iff
@@ -262,10 +263,9 @@ objective to $0$ (a verified lift) within $18$ steps. On $\mathrm{srg}(333,166,8
 of the $634$ skeletons with $8192$ chains and replica exchange per skeleton ($\approx 3.7\times10^6$ chains
 total), the objective plateaued at $\approx 3.9\times10^5$ with no lift found.
 
-\paragraph{The order-2 residue: a sharper ceiling.} The single case Theorem~\ref{thm:cyclo} leaves as a
-sample is $|H|=2$ (negation-invariant blocks), where the orbit-matrix methods are powerless because order
-$2$ imposes no congruence. It is worth recording how far the structure can in fact be pushed, and why it
-then resists. Since $-1$ is a quadratic residue mod $37$, negation-invariance of every block makes each
+\paragraph{The order-2 residue: a sharper ceiling.} Of the two open cases $|H|\in\{2,3\}$
+(Remark~\ref{rem:open}), the order-$2$ (negation-invariant) case admits a sharp structural analysis,
+recorded here: how far it can be pushed, and why it resists. Since $-1$ is a quadratic residue mod $37$, negation-invariance of every block makes each
 character matrix $M_t$ a \emph{real} symmetric $9\times9$ matrix with eigenvalues in $\{\theta,\tau\}$,
 $\theta,\tau=(-1\pm3\sqrt{37})/2$; write $a_t$ for the $\theta$-multiplicity of $M_t$. The Galois group
 $\Z_{37}^\ast/\{\pm1\}$ permutes the $M_t$ and acts on $\sqrt{37}$ through the Legendre symbol, forcing
@@ -305,22 +305,24 @@ order-$668$ problem. This is why the order-$2$ case is the true residue, and why
 \section{Discussion}
 We distinguish what is proven from what is evidence.
 \emph{Proven:} Proposition~\ref{prop:ninth} (square-divisor filters do not help $\mathrm{LP}(333)$);
-Proposition~\ref{prop:char} (the reduction); Theorem~\ref{thm:cyclo} (no cyclotomically-structured
-$\Z_{37}$ lift, complete for every multiplier subgroup of order $\ge3$);
-Proposition~\ref{prop:order2} (the remaining order-$2$ case is confined to residue-multiplicity
-$a\in\{4,5\}$, and provably resists every trace-linear obstruction). \emph{Evidence:} the parallel-tempering
-plateau is a strong
-indication, from a search demonstrably able to find lifts when they exist, that no unstructured
-$\Z_{37}$-symmetric lift exists either, though it is not a proof. Taken together with
+Proposition~\ref{prop:char} (the reduction); the complete enumeration of the $2901$ admissible orbit
+matrices; Theorem~\ref{thm:cyclo} (no cyclotomically-structured $\Z_{37}$ lift for the $6$ multiplier
+subgroups of order $\ge4$, by two lift-free arguments); and Proposition~\ref{prop:order2} (a hypothetical
+order-$2$ solution is confined to $\theta$-multiplicity $a\in\{4,5\}$ and resists every trace-linear
+obstruction). \emph{Open:} the cyclotomic lift for the two finest multipliers $|H|\in\{2,3\}$
+(Remark~\ref{rem:open}), which sound SAT does not decide in feasible time. \emph{Evidence:} the
+parallel-tempering plateau is a strong indication, from a search demonstrably able to find lifts when they
+exist, that no unstructured $\Z_{37}$-symmetric lift exists either, though it is not a proof. Taken together with
 Lemma~\ref{lem:cayley}, this makes a $\Z_{37}$-symmetric $\mathrm{srg}(333,166,82,83)$ unlikely, and
 focuses any future construction of $H(668)$ on (a) genuinely asymmetric conference graphs, (b) automorphisms
 of other orders (for which the orbit-matrix block size grows), or (c) the Legendre-pair / cocyclic
 routes~\cite{adt}, where Section~\ref{sec:lp} clarifies which spectral tools do and do not help.
 
 \section*{Reproducibility}
-All code (the $\Z_{37}$ reduction and verifier, the orbit-matrix enumerator and its order-$3$-compatible
-restriction, the exact SAT lift, the order-$3$ exhaustive lift sweep and the orbit-matrix-free cyclotomic
-check, the GPU batched parallel-tempering search, and the conference-to-Hadamard emitter), together with
+All code (the $\Z_{37}$ reduction and verifier, the complete orbit-matrix enumerator with its sound symmetry
+reduction, the orbit-matrix coset-compatibility and orbit-matrix-free cyclotomic checks, the exact and
+coset-level SAT lifts together with the validation exhibiting the multiplier gauge-fixing as unsound, the
+GPU batched parallel-tempering search, and the conference-to-Hadamard emitter), together with
 its validation (reconstruction of the Paley graphs $P(9),P(25),P(49)$, the
 conference-to-Hadamard chain on $H(12),H(28),H(36)$, and recovery of a genuine lift on the
 $\mathrm{srg}(25,12,5,6)$ skeleton) is openly available at

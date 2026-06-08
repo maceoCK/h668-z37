@@ -21,19 +21,24 @@ The paper is in [`paper/h668_z37.pdf`](paper/h668_z37.pdf) (source `paper/h668_z
    eigenvalue-field obstruction *permits*, unlike the group-developed/Cayley case),
    srg(333,166,82,83) reduces to a 9×9 array of Z₃₇-circulants, with strong regularity
    equivalent to a per-character condition `M_t² + M_t − 83I = 0` over Z[ζ₃₇].
-3. **Cyclotomic nonexistence.** No `H`-cyclotomic (Paley-type) Z₃₇-symmetric
-   srg(333,166,82,83) exists for **7 of the 8** proper nontrivial multiplier subgroups
-   (*every* subgroup of order ≥ 3) **completely**:
-   - `|H| ∈ {4,6,9,12,18,36}`: no coset-compatible orbit matrix exists at all
-     (SAT-certified UNSAT), independent of the orbit matrix;
-   - `|H| = 3`: order-3-compatible orbit matrices *do* exist: a complete backtracking
-     enumeration (no node cap, 1.99×10¹⁰ nodes) finds **exactly 960**, but *none* of the
-     960 admits an order-3-invariant lift (all UNSAT), so no order-3-invariant graph exists.
+3. **Cyclotomic nonexistence (6 of 8, by lift-free arguments).** No `H`-cyclotomic
+   (Paley-type) Z₃₇-symmetric srg(333,166,82,83) exists for the **6** proper nontrivial
+   multiplier subgroups of order ≥ 4, `|H| ∈ {4,6,9,12,18,36}`: no coset-compatible orbit
+   matrix exists at all (SAT-certified UNSAT, independent of any orbit matrix), with an
+   independent orbit-matrix-free confirmation for `{12,18,36}`. Both arguments are
+   **lift-free** (no base-point gauge), hence unconditional. We also **completely enumerate
+   the 2,901 admissible orbit matrices** (the necessary skeletons; sound symmetry reduction,
+   every diagonal exhausted).
 
-   Only `|H| = 2` (negation-invariant blocks) remains a *sample* rather than a complete
-   proof: order 2 imposes no congruence on the orbit matrix, so it is ruled out over the
-   634 enumerated skeletons. Large-scale GPU parallel-tempering finds no unstructured lift
-   either.
+   > **The two finest multipliers `|H| ∈ {2,3}` are OPEN.** They reduce to a per-skeleton
+   > cyclotomic *lift* over the 2,901 orbit matrices, which we do not resolve. A base-point
+   > gauge-fixing that accelerates the general lift is **unsound** under a multiplier
+   > constraint (it wrongly rejects the genuine negation-invariant Paley graph P(25)), and
+   > without it no sound SAT encoding decides a single `|H|∈{2,3}` instance within 30 min.
+   > An earlier version of this repo reported these cases as closed; that relied on the
+   > unsound gauge-fixing and has been **retracted**. All evidence (below) still points to
+   > nonexistence, but it is not proven. Large-scale GPU parallel-tempering finds no
+   > unstructured lift either.
 4. **The order-2 residue: a sharper ceiling** (paper §4, Prop. order2). The remaining
    order-2 case is *narrowed and explained*:
    - **Narrowing:** a Gauss-sum/Galois argument pins the θ-multiplicity of each
@@ -56,8 +61,10 @@ code/         all validated machinery + data + reference notes
   conference_z37.py         the Z₃₇ reduction
   conference_orbit.cpp       C++ DFS that found the worked-example orbit matrix
   conference_orbit_all.cpp   full orbit-matrix enumerator (streams skeletons)
-  orbit3_enum.cpp           ★ order-3-compatible enumerator → exactly 960 skeletons (Thm 1(b))
-  order3_sweep.py           ★ exhaustive order-3-invariant lift sweep over the 960 (all UNSAT)
+  conference_orbit_sym.cpp  ★ COMPLETE orbit-matrix enumerator (sound symmetry break) → 2901 reps
+  cyclo_lift_coset.py       ★ SOUND coset-level cyclotomic lift (no gauge; validates on P(9)/P(25))
+  orbit3_enum.cpp           order-3-compatible enumerator → 960 skeletons (|H|=3 substrate)
+  order3_sweep.py           RETRACTED: order-3 lift sweep via unsound gauge-fix (kept as a pitfall record)
   order2_spectral.py        order-2 (negation-invariant) lift with N_g/a∈{4,5} pruning
   uniform18_enum.cpp        ★ proves no constant-18 orbit matrix exists → a∈{3,6} eliminated
   uniform18_maxbreak.cpp    independent re-check (different sound symmetry break)
@@ -74,7 +81,8 @@ code/         all validated machinery + data + reference notes
   validate_search.py        ground-truth validation of the multiplier search
   modal_cyclo.py, modal_lift.py, modal_gpu_lift.py   Modal (serverless) drivers for scale
   skeletons.txt (634), skeletons_full.txt (≥1678)    enumerated orbit-matrix skeletons
-  orbit3_compatible.txt (960)   complete set of order-3-compatible orbit matrices (Thm 1(b))
+  orbit_all_sym.txt (2901)      COMPLETE set of admissible orbit matrices (all necessary skeletons)
+  orbit3_compatible.txt (960)   order-3-compatible orbit matrices (the |H|=3 substrate)
   orbitR_found.npy          the verified worked-example 9×9 orbit matrix
   LP{13,17,19}_{u,v}.npy    small Legendre pairs used to validate the pipeline
   FINDINGS.md, README_H668_ATTACK.md   detailed research notes
@@ -97,25 +105,33 @@ python validate_search.py      # multiplier search vs brute-force ground truth
 python gpu_lift.py             # (needs PyTorch) finds the P(25) lift by parallel tempering
 ```
 
-**Reproduce the complete nonexistence results (Theorem 1, orders ≥ 3):**
+**Reproduce the complete (lift-free) nonexistence results — orders ≥ 4 (6 of 8):**
 
 ```bash
-# (a) orders {4,6,9,12,18,36}: no coset-compatible orbit matrix exists at all (~minutes)
 python orbit_compat.py 300
 #   order  9,6,4,12,18,36: INFEASIBLE  -> CLOSED (no such srg, any orbit matrix)
-#   order  2,3:            UNKNOWN     -> orbit-matrix argument does not apply (see below)
-
-# (b) order 3: enumerate the COMPLETE order-3-compatible set, then sweep lifts (~30 min total)
-clang++ -O3 -o orbit3_enum orbit3_enum.cpp && ./orbit3_enum   # -> exactly 960 skeletons
-python order3_sweep.py 120 8                                  # -> all 960 UNSAT => order 3 CLOSED
+#   order  2,3:            UNKNOWN     -> orbit-matrix argument does not apply; OPEN (see note)
 ```
 
-**Orbit-matrix-free confirmation (Theorem 1(b)) and the full skeleton sweep run at scale on Modal:**
+**Complete enumeration of the 2,901 admissible orbit matrices (the necessary skeletons):**
 
 ```bash
-modal run modal_cyclo.py --time-s 7200     # orbit-matrix-free per subgroup
-modal run modal_lift.py  --mode cyclo      # per-skeleton cyclotomic sweep over 634 skeletons
-modal run modal_gpu_lift.py                # GPU parallel-tempering, unstructured lift
+clang++ -O3 -o conference_orbit_sym conference_orbit_sym.cpp && ./conference_orbit_sym
+#   -> 2901 representatives, every diagonal exhausted (sound symmetry reduction)
+```
+
+**Orders 2 and 3 (OPEN).** These reduce to a per-skeleton cyclotomic *lift*. The sound solver
+`cyclo_lift_coset.py` reconstructs Paley P(9)/P(25) (validates) but does **not** decide a single
+`|H|∈{2,3}` srg(333) instance within 30 min. The gauge-accelerated `order3_sweep.py` / `order2_*` scripts
+are **retracted**: their gauge-fixing is unsound under a multiplier constraint (it rejects the real
+negation-invariant P(25)); they are kept only to document the pitfall.
+
+**Orbit-matrix-free confirmation (Theorem 1(b), `{12,18,36}`) and evidence runs on Modal:**
+
+```bash
+modal run modal_cyclo.py --time-s 7200     # SOUND orbit-matrix-free check (no gauge) -> {12,18,36} UNSAT
+modal run modal_gpu_lift.py                # GPU parallel-tempering, unstructured lift (heuristic evidence)
+# NOTE: modal_lift.py --mode cyclo and modal_order2*.py use the unsound multiplier gauge-fix -> RETRACTED.
 ```
 
 **Re-enumerate orbit-matrix skeletons (C++):**
