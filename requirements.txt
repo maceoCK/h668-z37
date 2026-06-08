@@ -2,8 +2,8 @@
 numpy>=1.24
 ortools>=9.7        # CP-SAT solver
 
-# Optional — GPU parallel-tempering lift search (gpu_lift.py, modal_gpu_lift.py)
+# Optional: GPU parallel-tempering lift search (gpu_lift.py, modal_gpu_lift.py)
 # torch>=2.0
 
-# Optional — running the full-scale sweeps on Modal (modal_*.py)
+# Optional: running the full-scale sweeps on Modal (modal_*.py)
 # modal>=1.0

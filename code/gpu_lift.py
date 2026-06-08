@@ -5,7 +5,7 @@ M_t[i][j]=sum_{d in D[i][j]} w^{td}.  F=0 <=> srg(v,k,lam,mu).  One GPU runs B~1
 the 100-container concurrency cap (each container = thousands of chains).
 
 Validated: (a) F==0 on true Paley P(9)/P(25) blocks; (b) PT search FINDS a lift (F->0) on the P(25)
-skeleton (which is constructible) — end-to-end check before any GPU spend on srg(333).
+skeleton (which is constructible), end-to-end check before any GPU spend on srg(333).
 """
 import torch, numpy as np, itertools, time
 import conf_core as cc

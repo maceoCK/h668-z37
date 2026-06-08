@@ -34,7 +34,7 @@ pairs of length $\ell=333$, and the strongly regular (conference) graph $\mathrm
 equivalent to a symmetric conference matrix $C(334)$. We make three contributions.
 First, we give a clean account of the power-spectral conditions for a Legendre pair of length
 $333=9\cdot 37$ and prove that the natural \emph{square-divisor} refinement of the Kotsireas--Koutschan
-cyclotomic filter --- evaluating the spectrum at a primitive $9$th root of unity --- provides
+cyclotomic filter (evaluating the spectrum at a primitive $9$th root of unity) provides
 \emph{no} additional pruning beyond the cube-root ($\bmod\ 3$) filter; the refinement lives in the
 cubic field $\Q(\zeta_9)^+$ but is implied by the cube-root condition. Second, assuming a
 fixed-point-free automorphism of order $37$ (which the eigenvalue-field obstruction \emph{permits},
@@ -42,7 +42,7 @@ unlike the group-developed case), we reduce $\mathrm{srg}(333,166,82,83)$ to a $
 circulants over $\Z_{37}$, with the strong-regularity identity equivalent to a per-character condition
 $M_t^2+M_t-83I=0$ on $9\times 9$ Hermitian matrices over $\Z[\zeta_{37}]$. Third, we prove by SAT that
 \emph{no} cyclotomically-structured (Paley-type) such graph exists for $7$ of the $8$ proper nontrivial
-multiplier subgroups --- completely for every subgroup of order $\ge 3$ (for the six orders $\ge 4$
+multiplier subgroups: completely for every subgroup of order $\ge 3$ (for the six orders $\ge 4$
 independently of any orbit matrix, and for order $3$ by exhausting the $960$ compatible orbit matrices);
 for the last (order $2$) we verify nonexistence over $634$ enumerated skeletons. We
 also give large-scale parallel-tempering evidence (a search validated to reconstruct
@@ -119,8 +119,8 @@ prime-power (rather than prime) frequency. One might hope it strengthens \eqref{
 
 \begin{proposition}[Square-divisor filter adds no pruning]\label{prop:ninth}
 For every length $\ell\in\{27,45,63\}$ (i.e.\ $\ell=9m$ with $m\in\{3,5,7\}$), every $\bmod\,3$-admissible
-state $(\gamma,\gamma')$ --- a pair of odd triples with row sums $\pm1$ and
-$\sum\gamma_r^2+\sum\gamma_r'^2=4m+2$ --- is the $3$-compression of a valid length-$9$ compressed Legendre
+state $(\gamma,\gamma')$ (a pair of odd triples with row sums $\pm1$ and
+$\sum\gamma_r^2+\sum\gamma_r'^2=4m+2$) is the $3$-compression of a valid length-$9$ compressed Legendre
 pair $(c,c')$. Hence the ninth-root condition is implied by the cube-root condition and provides no
 additional pruning of the spectrum.
 \end{proposition}
@@ -135,8 +135,8 @@ that fail to lift is $0$.
 \end{proof}
 
 \begin{remark}
-The case $\ell=45$ has $(\ell+1)/2=23$, prime and $\equiv2\pmod3$ --- the same arithmetic type as
-$167=(333+1)/2$ --- so the negative result is tested on a length representative of $333$, not merely on small
+The case $\ell=45$ has $(\ell+1)/2=23$, prime and $\equiv2\pmod3$ (the same arithmetic type as
+$167=(333+1)/2$), so the negative result is tested on a length representative of $333$, not merely on small
 toys. Structurally, the $9$-compression space is enormous and is a weak filter; the cube-root norm already
 captures all spectral information available at the $3$-part. We conclude that effort on $\mathrm{LP}(333)$
 should not be directed at square-divisor spectral filters.
@@ -154,7 +154,7 @@ nontrivial eigenvalue $(-1\pm3\sqrt{37})/2\in\Z[\zeta_3]$, impossible since $\Q(
 
 Lemma~\ref{lem:cayley} rules out the \emph{regular} automorphism group; it does not rule out individual
 automorphisms. We therefore consider a fixed-point-free automorphism $\sigma$ of order $37$. Since
-$37\nmid 333$ is false ($333=9\cdot37$), such $\sigma$ partitions the vertices into $9$ orbits of size
+$37\mid 333$ ($333=9\cdot37$), such $\sigma$ partitions the vertices into $9$ orbits of size
 $37$; we identify each orbit with $\Z_{37}$ so that $\sigma$ acts as $+1$. The adjacency matrix becomes a
 $9\times9$ array of circulants: writing $D[i][j]\subseteq\Z_{37}$ for the connection set of block $(i,j)$,
 $A_{(i,a),(j,b)}=1 \iff (b-a)\bmod 37\in D[i][j]$, with $D[j][i]=-D[i][j]$ (symmetry) and
@@ -165,7 +165,7 @@ standard orbit-matrix method~\cite{behbahani,crnkovic}; our contribution is its 
 parameter set, the resulting per-character condition, and the (non)existence results below.
 
 \begin{proposition}[Character reduction]\label{prop:char}
-Let $W(z)=\sum_{i}$ act blockwise and define, for $t\in\Z_{37}$, the $9\times9$ matrix
+Define, for $t\in\Z_{37}$, the $9\times9$ matrix
 $M_t[i][j]=\sum_{d\in D[i][j]}\zeta_{37}^{td}$. Then $A$ is $\mathrm{srg}(333,166,82,83)$ (equivalently
 $A^2+A-83I=83J$) if and only if
 \[
@@ -176,7 +176,7 @@ where each $M_t$ ($t\neq0$) is Hermitian over $\Z[\zeta_{37}]$ with spectrum in
 $\{(-1\pm\sqrt{333})/2\}$.
 \end{proposition}
 
-The integer matrix $R=(|D[i][j]|)$ --- the \emph{orbit matrix} --- is symmetric with row sums $166$, even
+The integer matrix $R=(|D[i][j]|)$, the \emph{orbit matrix}, is symmetric with row sums $166$, even
 diagonal, and (from $R^2+R-83I=3071J$) eigenvalues $166$ (once) and $(-1\pm\sqrt{333})/2$ (four times
 each); in particular $\operatorname{tr}R=162$ and a Cauchy--Schwarz argument confines the diagonal entries
 to $\{10,12,\dots,26\}$. We verified Proposition~\ref{prop:char} by reconstructing the Paley conference
@@ -188,11 +188,11 @@ tests.
 distinct admissible orbit matrices $R$, over which the order-$2$ sweep of Theorem~\ref{thm:cyclo}(d)
 ranges; a deeper search (per-diagonal cap $4\times10^{9}$ nodes) confirms at least $1678$ admissible
 skeletons, with the true number larger still (a few diagonals have search trees exceeding $4\times10^{9}$
-nodes and were not exhausted). The skeleton thus exists in abundance --- which is exactly why the complete,
+nodes and were not exhausted). The skeleton thus exists in abundance, which is exactly why the complete,
 enumeration-free arguments of Theorem~\ref{thm:cyclo}(a) matter: they sidestep the (apparently intractable)
 full enumeration. The full enumeration \emph{does} become tractable once a coset congruence is imposed:
 restricting to the order-$3$-compatible alphabet (diagonal in $\{12,18,24\}$, off-diagonal $\equiv0,1
-\bmod 3$) collapses the search to exactly $960$ orbit matrices, enumerated to completion --- the finite set
+\bmod 3$) collapses the search to exactly $960$ orbit matrices, enumerated to completion, the finite set
 that powers Theorem~\ref{thm:cyclo}(b). The remaining obstruction is the \emph{lift} to connection sets
 satisfying Proposition~\ref{prop:char}. A representative skeleton
 (row sums $166$, $\operatorname{tr}=162$, spectrum $\{166,\,r^{4},\,s^{4}\}$) is
@@ -221,14 +221,14 @@ reconstructing $P(9)$ and $P(25)$.
 
 Call a $\Z_{37}$-symmetric $\mathrm{srg}(333,166,82,83)$ \emph{$H$-cyclotomic} if every connection set is a
 union of cosets of a multiplier subgroup $H\le\Z_{37}^\ast$ (the Paley-type structure). The next theorem
-rules these out for $7$ of the $8$ proper nontrivial subgroups completely --- every subgroup of order
-$\ge 3$ --- and for the remaining one (order $2$) over our enumerated skeletons.
+rules these out for $7$ of the $8$ proper nontrivial subgroups completely (every subgroup of order
+$\ge 3$), and for the remaining one (order $2$) over our enumerated skeletons.
 
 \begin{theorem}[No cyclotomically-structured lift]\label{thm:cyclo}
 No $H$-cyclotomic $\mathrm{srg}(333,166,82,83)$ exists in the following cases.
 \begin{enumerate}[label=(\alph*),leftmargin=2em]
 \item \emph{(Complete, via the orbit matrix; $|H|\in\{4,6,9,12,18,36\}$.)} An $H$-cyclotomic graph forces
-its $9\times9$ orbit matrix to have $H$-coset-compatible cardinalities --- off-diagonal $R[i][j]\equiv 0$
+its $9\times9$ orbit matrix to have $H$-coset-compatible cardinalities: off-diagonal $R[i][j]\equiv 0$
 or $1\ (\mathrm{mod}\ |H|)$ (the residue records whether $0\in D[i][j]$), and diagonal $R[i][i]\equiv 0\
 (\mathrm{mod}\ |H|)$ if $-1\in H$ else $\pmod{2|H|}$. No integer matrix meets these together with the
 orbit-matrix identity $R^2+R-83I=3071J$ (SAT-certified \textsc{unsat}); hence no such graph exists, for
@@ -240,11 +240,11 @@ finds exactly $960$, all with diagonal $(12,12,18,18,18,18,18,24,24)$. For \emph
 the orbit-matrix-fixed order-$3$-invariant lift is \textsc{unsat}; hence no order-$3$-invariant graph
 exists.
 \item \emph{(Complete, independent confirmation; $|H|\in\{12,18,36\}$.)} The stronger orbit-matrix-free
-system --- every block $H$-invariant, the graph $166$-regular, $R$ unconstrained --- is directly
+system (every block $H$-invariant, the graph $166$-regular, $R$ unconstrained) is directly
 \textsc{unsat}.
 \item \emph{(Over enumerated skeletons; $|H|=2$.)} For each of the $634$ enumerated orbit-matrix skeletons,
-the order-$2$-invariant lift is \textsc{unsat}. (Order $2$ imposes no congruence on the orbit matrix --- every
-$R$ is coset-compatible --- so neither the argument of (a) nor the finite enumeration of (b) applies, and the
+the order-$2$-invariant lift is \textsc{unsat}. (Order $2$ imposes no congruence on the orbit matrix: every
+$R$ is coset-compatible, so neither the argument of (a) nor the finite enumeration of (b) applies, and the
 result is a sample rather than a complete proof.)
 \end{enumerate}
 \end{theorem}
@@ -281,8 +281,8 @@ identifies the diagonal pair-counts $N_g:=\#\{i:\{g,-g\}\subseteq D[i][i]\}$ as 
 residue pairs and $N_g=18-3a$ on the nine non-residue pairs. Non-negativity $0\le N_g\le 9$ gives
 $a\in\{3,4,5,6\}$. For $a\in\{3,6\}$ the counts are extremal $\{0,9\}$, forcing every diagonal block to
 equal $Q^{\mp}$ (all non-residues, resp.\ all residues) and hence the orbit matrix to have constant
-diagonal $(18,\dots,18)$; an exhaustive backtracking search --- complete under the $S_9$ orbit-relabeling
-symmetry ($1.9\times10^{8}$ nodes, corroborated to $9\times10^{10}$ nodes by an independent reduction) ---
+diagonal $(18,\dots,18)$; an exhaustive backtracking search, complete under the $S_9$ orbit-relabeling
+symmetry ($1.9\times10^{8}$ nodes, corroborated to $9\times10^{10}$ nodes by an independent reduction),
 finds \emph{no} admissible orbit matrix with constant diagonal $18$. Hence $a\in\{4,5\}$. The $N_g$ identity
 was validated on the negation-invariant graphs $P(13)$ and the $25$-orbit Paley graph of $\mathrm{GF}(5^3)$.
 \end{proof}
@@ -296,8 +296,8 @@ $9$ with $-1\notin\langle 83\rangle$, no self-conjugacy/multiplier obstruction a
 invariance makes $\varphi:(i,g)\mapsto(i,-g)$ a graph automorphism commuting with $A$, and as $A^2$ is
 affine in $\{I,A,J\}$, every word in $\{A,\varphi\}$ reduces to an affine combination of
 $\{I,A,J,\varphi,\varphi A\}$, whose traces are the fixed values $\{333,0,333,9,162\}$. Consequently
-\emph{no} trace-linear invariant --- spectral, character-theoretic, involution-based, or association-scheme
-/Krein --- separates a hypothetical solution from the orbit-matrix data: any obstruction must be genuinely
+\emph{no} trace-linear invariant (spectral, character-theoretic, involution-based, or
+association-scheme/Krein) separates a hypothetical solution from the orbit-matrix data: any obstruction must be genuinely
 non-linear in the $\{0,1\}$ block indicators, i.e.\ it resides in the lift feasibility itself, which is the
 order-$668$ problem. This is why the order-$2$ case is the true residue, and why we leave it open.
 
@@ -309,7 +309,7 @@ $\Z_{37}$ lift, complete for every multiplier subgroup of order $\ge3$);
 Proposition~\ref{prop:order2} (the remaining order-$2$ case is confined to residue-multiplicity
 $a\in\{4,5\}$, and provably resists every trace-linear obstruction). \emph{Evidence:} the parallel-tempering
 plateau is a strong
-indication --- from a search demonstrably able to find lifts when they exist --- that no unstructured
+indication, from a search demonstrably able to find lifts when they exist, that no unstructured
 $\Z_{37}$-symmetric lift exists either, though it is not a proof. Taken together with
 Lemma~\ref{lem:cayley}, this makes a $\Z_{37}$-symmetric $\mathrm{srg}(333,166,82,83)$ unlikely, and
 focuses any future construction of $H(668)$ on (a) genuinely asymmetric conference graphs, (b) automorphisms
@@ -320,9 +320,9 @@ where Section~\ref{sec:lp} clarifies which spectral tools do and do not help.
 All code (the $\Z_{37}$ reduction and verifier, the orbit-matrix enumerator and its order-$3$-compatible
 restriction, the exact SAT lift, the order-$3$ exhaustive lift sweep and the orbit-matrix-free cyclotomic
 check, the GPU batched parallel-tempering search, and the conference-to-Hadamard emitter), together with
-its validation --- reconstruction of the Paley graphs $P(9),P(25),P(49)$, the
+its validation (reconstruction of the Paley graphs $P(9),P(25),P(49)$, the
 conference-to-Hadamard chain on $H(12),H(28),H(36)$, and recovery of a genuine lift on the
-$\mathrm{srg}(25,12,5,6)$ skeleton --- is openly available at
+$\mathrm{srg}(25,12,5,6)$ skeleton) is openly available at
 \url{https://github.com/maceoCK/h668-z37} and archived on Zenodo (DOI to be assigned on release).
 
 \begin{thebibliography}{99}
