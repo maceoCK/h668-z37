@@ -5,9 +5,10 @@ matrix problem (the smallest order for which existence is currently open) via a
 fixed-point-free automorphism of order 37 of the strongly regular (conference) graph
 **srg(333, 166, 82, 83)** ⟺ symmetric conference matrix **C(334)** ⟺ **H(668)**.
 
-> **Status.** H(668) remains open. This repository contributes a reduction, complete
-> nonexistence results for cyclotomically-structured Z₃₇-symmetric solutions, and the
-> reproducible code behind them. It does **not** claim a construction of H(668).
+> **Status.** H(668) remains open. This repository contributes a reduction, a complete enumeration of
+> the 2,901 orbit-matrix skeletons, nonexistence of cyclotomically-structured Z₃₇-symmetric solutions
+> for **6 of the 8** multiplier subgroups (orders 2 and 3 are open), and the reproducible code +
+> certificates behind them. It does **not** claim a construction of H(668).
 
 The paper is in [`paper/h668_z37.pdf`](paper/h668_z37.pdf) (source `paper/h668_z37.tex`).
 
@@ -62,6 +63,8 @@ code/         all validated machinery + data + reference notes
   conference_orbit.cpp       C++ DFS that found the worked-example orbit matrix
   conference_orbit_all.cpp   full orbit-matrix enumerator (streams skeletons)
   conference_orbit_sym.cpp  ★ COMPLETE orbit-matrix enumerator (sound symmetry break) → 2901 reps
+  conference_orbit_certify.cpp ★ certificate: coset-compatible count = 0 for |H|∈{4,6,9,12,18,36} (Thm 1a)
+  verify_certificates.py    ★ verifies the 2901 enumeration + reruns the Thm 1(a) certificates
   cyclo_lift_coset.py       ★ SOUND coset-level cyclotomic lift (no gauge; validates on P(9)/P(25))
   orbit3_enum.cpp           order-3-compatible enumerator → 960 skeletons (|H|=3 substrate)
   order3_sweep.py           RETRACTED: order-3 lift sweep via unsound gauge-fix (kept as a pitfall record)
@@ -118,6 +121,16 @@ python orbit_compat.py 300
 ```bash
 clang++ -O3 -o conference_orbit_sym conference_orbit_sym.cpp && ./conference_orbit_sym
 #   -> 2901 representatives, every diagonal exhausted (sound symmetry reduction)
+```
+
+**Verifiable certificates (trust no solver):**
+
+```bash
+clang++ -O3 -o cert conference_orbit_certify.cpp
+python verify_certificates.py
+#   [complete enumeration] orbit_all_sym.txt: 2901 matrices ... VERIFIED
+#   [Theorem 1(a)] coset-compatible orbit-matrix counts (independent C++ search):
+#     e=4,6,9,12,18,36: count 0 -> NO H-cyclotomic srg CERTIFIED
 ```
 
 **Orders 2 and 3 (OPEN).** These reduce to a per-skeleton cyclotomic *lift*. The sound solver

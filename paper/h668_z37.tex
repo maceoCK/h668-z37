@@ -20,7 +20,7 @@
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\ze}{\zeta}
 
-\title{Cyclotomic filters and a $\Z_{37}$ orbit-matrix attack\\ on the order-668 Hadamard problem}
+\title{A $\Z_{37}$ orbit-matrix reduction and cyclotomic obstructions\\ for the conference graph of $H(668)$}
 \author{Maceo Cardinale Kwik\\[2pt] \small Datost, San Francisco, CA\\ \small \texttt{maceo@datost.com}}
 \date{June 2026}
 
@@ -28,26 +28,24 @@
 \maketitle
 
 \begin{abstract}
-A Hadamard matrix of order $668 = 4\cdot 167$ is the smallest order for which existence is currently
-unknown. We study two of the equivalent objects whose construction would settle the question: Legendre
-pairs of length $\ell=333$, and the strongly regular (conference) graph $\mathrm{srg}(333,166,82,83)$,
-equivalent to a symmetric conference matrix $C(334)$. We make three contributions.
-First, we give a clean account of the power-spectral conditions for a Legendre pair of length
-$333=9\cdot 37$ and prove that the natural \emph{square-divisor} refinement of the Kotsireas--Koutschan
-cyclotomic filter (evaluating the spectrum at a primitive $9$th root of unity) provides
-\emph{no} additional pruning beyond the cube-root ($\bmod\ 3$) filter; the refinement lives in the
-cubic field $\Q(\zeta_9)^+$ but is implied by the cube-root condition. Second, assuming a
-fixed-point-free automorphism of order $37$ (which the eigenvalue-field obstruction \emph{permits},
-unlike the group-developed case), we reduce $\mathrm{srg}(333,166,82,83)$ to a $9\times 9$ array of
-circulants over $\Z_{37}$, with the strong-regularity identity equivalent to a per-character condition
-$M_t^2+M_t-83I=0$ on $9\times 9$ Hermitian matrices over $\Z[\zeta_{37}]$. Third, we prove by two lift-free
-arguments that \emph{no} cyclotomically-structured (Paley-type) such graph exists for the $6$ proper
-nontrivial multiplier subgroups of order $\ge 4$; we completely enumerate the $2901$ admissible orbit
-matrices (the necessary skeletons), and reduce the two finest multipliers $|H|\in\{2,3\}$ to a per-skeleton
-cyclotomic lift that we leave open, with structural evidence (a $\theta$-multiplicity confined to
-$\{4,5\}$, and resistance to every trace-linear obstruction) and parallel-tempering evidence (a search
-validated to reconstruct $\mathrm{srg}(25,12,5,6)$) both pointing to nonexistence. These results narrow the
-search for $H(668)$ and we release validated open-source machinery for the reduction.
+A Hadamard matrix of order $668 = 4\cdot 167$ is the smallest order whose existence is unknown; equivalently
+no symmetric conference matrix $C(334)$, regular two-graph on $334$ points, or strongly regular graph
+$\mathrm{srg}(333,166,82,83)$ is known. Assuming a fixed-point-free automorphism of order $37$, permitted by
+the eigenvalue-field obstruction (unlike the group-developed Cayley case), we reduce
+$\mathrm{srg}(333,166,82,83)$ to a $9\times9$ array of circulants over $\Z_{37}$, the strong-regularity
+identity becoming a per-character condition $M_t^2+M_t-83I=0$ over $\Z[\zeta_{37}]$. We then (i) completely
+enumerate, via a sound symmetry reduction, the $2901$ admissible $9\times9$ orbit matrices, the necessary
+skeletons of any such graph; (ii) prove by two lift-free arguments that \emph{no} cyclotomically-structured
+(Paley-type) graph exists for the $6$ proper nontrivial multiplier subgroups of order $\ge 4$; (iii) reduce
+the two finest multipliers $|H|\in\{2,3\}$ to a per-skeleton lift we leave open, and prove a
+\emph{collapse theorem} explaining the difficulty (the negation involution forces every trace-linear
+invariant, spectral or character-theoretic or association-scheme/Krein, to be determined by the orbit
+matrix, so any obstruction must be non-linear in the $\{0,1\}$ connection-set indicators), while confining a
+hypothetical order-$2$ solution to $\theta$-multiplicity $a\in\{4,5\}$; and (iv) document that a base-point
+gauge-fixing routinely used to accelerate SAT search becomes \emph{unsound} once a multiplier constraint is
+imposed. Parallel-tempering evidence points to nonexistence. We release validated open-source code and the
+enumeration; an appendix records a negative result on square-divisor spectral filters for the equivalent
+Legendre pair $\mathrm{LP}(333)$.
 \end{abstract}
 
 \section{Introduction}
@@ -79,69 +77,21 @@ of order-$3$ character lies in $\Z[\zeta_3]\not\supseteq\Q(\sqrt{37})$, a contra
 ($\mathrm{ord}_{167}(2)=83$), so the Turyn--Schmidt field-descent bounds do not forbid $H(668)$; the
 barrier is constructive, not arithmetic.
 
-\paragraph{Contributions.} We (i) settle the question of whether a square-divisor cyclotomic filter
-strengthens the Kotsireas--Koutschan filter for $\mathrm{LP}(333)$ (Section~\ref{sec:lp}); (ii) give a
-$\Z_{37}$ orbit-matrix reduction of $\Gamma$ permitted by the eigenvalue-field obstruction, distinct from
-the group-developed case (Section~\ref{sec:reduction}); and (iii) report a complete computational attack
-on the reduced problem with rigorous (SAT) and heuristic (parallel-tempering) negative results
-(Section~\ref{sec:comp}).
-
-\section{Cyclotomic filters for $\mathrm{LP}(333)$}\label{sec:lp}
-Write $\PSD_x(s)=\bigl|\sum_{j}x_j\omega^{js}\bigr|^2$, $\omega=e^{2\pi i/\ell}$. Summing the LP
-condition gives the flat-spectrum form
-\begin{equation}\label{eq:flat}
-\PSD_u(s)+\PSD_v(s)=2\ell+2\quad(s\not\equiv0),\qquad \PSD_u(0)+\PSD_v(0)=2,
-\end{equation}
-so the row sums are $\pm1$; for $\ell=333$ the constant is $2\ell+2=668$.
-
-For $d\mid\ell$ the \emph{$d$-compression} $c^{(d)}_r=\sum_{j\equiv r\ (d)}x_j$ satisfies
-$\PAF_{c^{(d)}}(k)=\sum_{i\equiv k\ (d)}\PAF_x(i)$~\cite{dk-compress}, and $\PSD_x(\ell/d)$ depends only on
-$c^{(d)}$.
-
-\paragraph{Cube root (mod 3).} At $s=\ell/3$, write $\gamma=c^{(3)}(u)$, with $\gamma_r$ odd (a sum of
-$\ell/3=111$ values $\pm1$). Then $\PSD_u(\ell/3)=|\gamma_0+\gamma_1\zeta_3+\gamma_2\zeta_3^2|^2
-=\gamma_0^2+\gamma_1^2+\gamma_2^2-\gamma_0\gamma_1-\gamma_1\gamma_2-\gamma_2\gamma_0$, the Eisenstein norm.
-Since the $\gamma_r$ are odd and $1+\zeta_3+\zeta_3^2=0$, this value is divisible by $4$:
-$\PSD_u(\ell/3)=4(x^2+xy+y^2)$ with $x=(\gamma_0-\gamma_1)/2,\ y=(\gamma_1-\gamma_2)/2\in\Z$. With
-\eqref{eq:flat} this gives the necessary condition
-\begin{equation}\label{eq:loeschian}
-\tfrac{\ell+1}{2}=167=L_u+L_v,\qquad L_u,L_v\ \text{Loeschian (values of }x^2+xy+y^2).
-\end{equation}
-A short enumeration recovers exactly the Kotsireas--Koutschan spectrum~\cite{kk-mod3}: $16$ admissible
-values of $\PSD_u(\ell/3)$, all $\equiv 4\pmod{12}$, forming $8$ complementary Loeschian pairs summing to
-$167$.
-
-\paragraph{Ninth root (mod 9): the square-divisor refinement.} Since $9\mid 333$, one may also evaluate at
-a primitive $9$th root $s=\ell/9$. With $c=c^{(9)}(u)$ (entries odd), the same parity argument gives
-$\PSD_u(\ell/9)=4\,|E(\zeta_9)|^2$ for $E\in\Z[\zeta_9]$, a totally non-negative element of the cubic field
-$K=\Q(\zeta_9)^+=\Q(\cos\tfrac{2\pi}{9})$, and \eqref{eq:flat} reads $167=N_u+N_v$ in $\mathcal O_K$ with
-$N_u,N_v$ totally non-negative. This is a genuine cubic-field condition, and no published filter uses a
-prime-power (rather than prime) frequency. One might hope it strengthens \eqref{eq:loeschian}. It does not.
-
-\begin{proposition}[Square-divisor filter adds no pruning]\label{prop:ninth}
-For every length $\ell\in\{27,45,63\}$ (i.e.\ $\ell=9m$ with $m\in\{3,5,7\}$), every $\bmod\,3$-admissible
-state $(\gamma,\gamma')$ (a pair of odd triples with row sums $\pm1$ and
-$\sum\gamma_r^2+\sum\gamma_r'^2=4m+2$) is the $3$-compression of a valid length-$9$ compressed Legendre
-pair $(c,c')$. Hence the ninth-root condition is implied by the cube-root condition and provides no
-additional pruning of the spectrum.
-\end{proposition}
-
-\begin{proof}[Verification]
-For each $\ell$ we enumerate all length-$9$ integer pairs $(c,c')$ with odd entries in $[-m,m]$, row sums
-$\pm1$, and $\PAF_c(k)+\PAF_{c'}(k)=-2m$ ($k\neq0$), $=2\ell-2m+2$ ($k=0$); we form the set of $3$-compressions
-$(c^{(3)},c'^{(3)})$ and check it equals the full set of $\bmod\,3$-admissible states. The counts are:
-$\ell=27$: $250{,}128$ pairs, all $288$ states realized; $\ell=45$: $1{,}163{,}808$ pairs, all $288$ realized;
-$\ell=63$: $9{,}385{,}956$ pairs, all $756$ realized. In every case the number of $\bmod\,3$-admissible states
-that fail to lift is $0$.
-\end{proof}
-
-\begin{remark}
-The case $\ell=45$ has $(\ell+1)/2=23$, prime and $\equiv2\pmod3$ (the same arithmetic type as
-$167=(333+1)/2$), so the negative result is tested on a length representative of $333$, not merely on small
-toys. Structurally, the $9$-compression space is enormous and is a weak filter; the cube-root norm already
-captures all spectral information available at the $3$-part. We conclude that effort on $\mathrm{LP}(333)$
-should not be directed at square-divisor spectral filters.
-\end{remark}
+\paragraph{Contributions and related work.} We (i) give a $\Z_{37}$ orbit-matrix reduction of $\Gamma$
+permitted by the eigenvalue-field obstruction, distinct from the group-developed case
+(Section~\ref{sec:reduction}); (ii) completely enumerate the $2901$ admissible orbit matrices and prove, by
+two lift-free arguments, the nonexistence of cyclotomically-structured graphs for the $6$ multiplier
+subgroups of order $\ge4$ (Section~\ref{sec:comp}); (iii) for the two finest multipliers $|H|\in\{2,3\}$,
+prove a trace-linearity collapse theorem and confine a hypothetical order-$2$ solution, while documenting a
+soundness pitfall in gauge-fixed SAT search (Section~\ref{sec:comp}); and (iv) record, in
+Appendix~\ref{sec:lp}, that square-divisor spectral filters do not strengthen the Kotsireas--Koutschan
+filter for the equivalent $\mathrm{LP}(333)$.
+The orbit-matrix method for strongly regular graphs with a prescribed semiregular automorphism is due to
+Behbahani--Lam~\cite{behbahani} and was developed for two-graphs and self-orthogonal codes by
+Crnkovi\'c--Maksimovi\'c--Rodrigues--Rukavina~\cite{crnkovic} and, for regular two-graphs on up to $50$
+points, by Maksimovi\'c~\cite{maksimovic}. Our contribution is its application to this open conference
+parameter set: the resulting per-character condition $M_t^2+M_t-83I=0$, the complete skeleton enumeration,
+the cyclotomic nonexistence theorems, and the trace-linearity collapse that delimits the method.
 
 \section{A $\Z_{37}$ orbit-matrix reduction of $\mathrm{srg}(333,166,82,83)$}\label{sec:reduction}
 
@@ -231,8 +181,10 @@ No $H$-cyclotomic $\mathrm{srg}(333,166,82,83)$ exists for $|H|\in\{4,6,9,12,18,
 \item \emph{(Via the orbit matrix.)} An $H$-cyclotomic graph forces its $9\times9$ orbit matrix to have
 $H$-coset-compatible cardinalities: off-diagonal $R[i][j]\equiv 0$ or $1\ (\mathrm{mod}\ |H|)$ (the residue
 records whether $0\in D[i][j]$), and diagonal $R[i][i]\equiv 0\ (\mathrm{mod}\ |H|)$ if $-1\in H$ else
-$\pmod{2|H|}$. No integer matrix meets these together with the orbit-matrix identity $R^2+R-83I=3071J$
-(SAT-certified \textsc{unsat}); hence no such graph exists, for \emph{any} orbit matrix.
+$\pmod{2|H|}$. No integer matrix meets these together with the orbit-matrix identity $R^2+R-83I=3071J$:
+an independent exhaustive backtracking enumeration over the coset-compatible alphabet finds \emph{none} for
+each of the six orders (a complete-search certificate trusting no solver; each search is exhausted in well
+under a second). Hence no such graph exists, for \emph{any} orbit matrix.
 \item \emph{(Independent confirmation, $|H|\in\{12,18,36\}$.)} The stronger orbit-matrix-free system (every
 block $H$-invariant, the graph $166$-regular, $R$ unconstrained) is directly \textsc{unsat}.
 \end{enumerate}
@@ -288,19 +240,60 @@ finds \emph{no} admissible orbit matrix with constant diagonal $18$. Hence $a\in
 was validated on the negation-invariant graphs $P(13)$ and the $25$-orbit Paley graph of $\mathrm{GF}(5^3)$.
 \end{proof}
 
-That the cases $a\in\{4,5\}$ then resist all of our tools is structural, not accidental. In the group ring
-$\Z[\Z_{37}]$ (generator $X$) the strong-regularity identity reads $B^2+B-83\,I_9=83\,T\,E_9$, where
-$B=(B_{ij})$ has the block indicators as entries, $E_9$ is all-ones, and $T=\sum_{g}X^{g}$ is supported on
-the \emph{principal} character. Every character-weighted (Gauss-/Jacobi-sum) functional therefore collapses
-to a plain cardinality already fixed by the orbit matrix; and since $83\equiv 9\pmod{37}$ has odd order
-$9$ with $-1\notin\langle 83\rangle$, no self-conjugacy/multiplier obstruction applies. Moreover negation
-invariance makes $\varphi:(i,g)\mapsto(i,-g)$ a graph automorphism commuting with $A$, and as $A^2$ is
-affine in $\{I,A,J\}$, every word in $\{A,\varphi\}$ reduces to an affine combination of
-$\{I,A,J,\varphi,\varphi A\}$, whose traces are the fixed values $\{333,0,333,9,162\}$. Consequently
-\emph{no} trace-linear invariant (spectral, character-theoretic, involution-based, or
-association-scheme/Krein) separates a hypothetical solution from the orbit-matrix data: any obstruction must be genuinely
-non-linear in the $\{0,1\}$ block indicators, i.e.\ it resides in the lift feasibility itself, which is the
-order-$668$ problem. This is why the order-$2$ case is the true residue, and why we leave it open.
+That the order-$2$ case resists our tools is structural, not accidental: the standard linear-algebraic and
+character-theoretic obstructions are all \emph{trace-linear}, and they collapse.
+
+\begin{theorem}[Trace-linearity collapse]\label{thm:collapse}
+Let $A$ be the adjacency matrix of an order-$2$-cyclotomic $\Z_{37}$-symmetric $\mathrm{srg}(333,166,82,83)$
+with orbit matrix $R$, and let $\varphi\in\{0,1\}^{333\times333}$ be the permutation matrix of the negation
+involution $(i,g)\mapsto(i,-g)$. Then:
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item $\varphi^2=I$, $\varphi A=A\varphi$ (so $\varphi$ is an automorphism of $A$), and $\varphi J=J\varphi=J$;
+\item the unital algebra $\mathcal A=\langle A,\varphi,J\rangle\subseteq M_{333}(\Q)$ is spanned by
+$\{I,A,J,\varphi,\varphi A\}$, so $\dim\mathcal A\le5$;
+\item the trace of every element of $\mathcal A$ is a $\Q$-linear combination of
+$\operatorname{tr}I=333$, $\operatorname{tr}A=0$, $\operatorname{tr}J=333$, $\operatorname{tr}\varphi=9$,
+and $\operatorname{tr}(\varphi A)=\operatorname{tr}R=162$, all fixed by the parameters and $R$.
+\end{enumerate}
+Consequently every spectral, character-theoretic, involution-graded, or quotient/Krein invariant of the
+graph, each of which is the trace of a word in $A,\varphi,J$, is determined by $R$ alone. No such
+invariant can distinguish a hypothetical order-$2$-cyclotomic solution from the orbit-matrix data, hence
+none can obstruct existence: any obstruction must be \emph{non-linear} in the $\{0,1\}$ connection-set
+indicators.
+\end{theorem}
+
+\begin{proof}
+(i) Each block $D[i][j]$ is negation-invariant, so
+$A_{(i,-g),(j,-h)}=[\,(-h)-(-g)\in D[i][j]\,]=[\,h-g\in -D[i][j]\,]=[\,h-g\in D[i][j]\,]=A_{(i,g),(j,h)}$;
+thus $\varphi A\varphi^{-1}=A$, and $\varphi=\varphi^{-1}$ gives $\varphi A=A\varphi$. Each row of $\varphi$
+has a single $1$, so $\varphi J=J=J\varphi$. (ii) From $A^2+A-83I=83J$ we get $A^2=83I-A+83J$, and
+$166$-regularity gives $AJ=JA=166J$; by induction $A^n\in\operatorname{span}\{I,A,J\}$ for all $n$. Since
+$\varphi^2=I$ and $\varphi$ commutes with $A$ and $J$ (with $\varphi J=J$), every word in $A,\varphi,J$
+equals $A^n\varphi^{\varepsilon}$ for some $n\ge0,\varepsilon\in\{0,1\}$, which lies in
+$\operatorname{span}\{I,A,J\}\cdot\{I,\varphi\}=\operatorname{span}\{I,A,J,\varphi,A\varphi\}$ (using
+$J\varphi=J$); and $A\varphi=\varphi A$. (iii) $\operatorname{tr}A=0$ (no loops); $\operatorname{tr}\varphi$
+counts fixed points $(i,g)$ with $g\equiv-g$, i.e.\ $g=0$, one per orbit, so $9$; and
+$\operatorname{tr}(\varphi A)=\sum_{i,g}A_{(i,-g),(i,g)}=\sum_{i,g}[\,2g\in D[i][i]\,]
+=\sum_i|D[i][i]|=\operatorname{tr}R=162$, since $g\mapsto2g$ permutes $\Z_{37}$. Linearity of the trace
+finishes the claim.
+\end{proof}
+
+\begin{remark}[Why character and multiplier methods are inert]\label{rem:inert}
+Two consequences sharpen Theorem~\ref{thm:collapse}. (a) In the group ring $\Z[\Z_{37}]$ (generator $X$) the
+strong-regularity identity reads $B^2+B-83I_9=83\,T\,E_9$ with $B=(B_{ij})$ the block-indicator matrix,
+$E_9$ all-ones, and $T=\sum_g X^g$ \emph{supported on the principal character}; so under any nonprincipal
+character $X\mapsto\zeta_{37}^{t}$ the inhomogeneous term vanishes and one is left with the homogeneous
+$M_t^2+M_t-83I=0$, whose Gauss-/Jacobi-sum evaluations reduce to cardinalities already fixed by $R$.
+(b) The numerical multiplier $83\equiv9\pmod{37}$ has \emph{odd} order $\mathrm{ord}_{37}(83)=9$ with
+$-1\notin\langle83\rangle$, so $83$ is not self-conjugate mod $37$ and the Turyn--Schmidt field-descent /
+multiplier bounds impose nothing, the same arithmetic as the Paley graph $P(13)$, which exists. In
+particular the moment hierarchy collapses: as $A$ satisfies a quadratic, $\operatorname{tr}(A^k)$ is an
+affine function of $\operatorname{tr}A$ for every $k$, so no power-sum (eigenvalue-multiplicity) count
+beyond $R$ is available.
+\end{remark}
+
+Thus the order-$2$ obstruction, if any, lives entirely in the non-linear $\{0,1\}$-realizability of the
+connection sets: the lift of Remark~\ref{rem:open}, which we leave open.
 
 \section{Discussion}
 We distinguish what is proven from what is evidence.
@@ -316,7 +309,7 @@ exist, that no unstructured $\Z_{37}$-symmetric lift exists either, though it is
 Lemma~\ref{lem:cayley}, this makes a $\Z_{37}$-symmetric $\mathrm{srg}(333,166,82,83)$ unlikely, and
 focuses any future construction of $H(668)$ on (a) genuinely asymmetric conference graphs, (b) automorphisms
 of other orders (for which the orbit-matrix block size grows), or (c) the Legendre-pair / cocyclic
-routes~\cite{adt}, where Section~\ref{sec:lp} clarifies which spectral tools do and do not help.
+routes~\cite{adt}, where Appendix~\ref{sec:lp} clarifies which spectral tools do and do not help.
 
 \section*{Reproducibility}
 All code (the $\Z_{37}$ reduction and verifier, the complete orbit-matrix enumerator with its sound symmetry
@@ -326,7 +319,70 @@ GPU batched parallel-tempering search, and the conference-to-Hadamard emitter), 
 its validation (reconstruction of the Paley graphs $P(9),P(25),P(49)$, the
 conference-to-Hadamard chain on $H(12),H(28),H(36)$, and recovery of a genuine lift on the
 $\mathrm{srg}(25,12,5,6)$ skeleton) is openly available at
-\url{https://github.com/maceoCK/h668-z37} and archived on Zenodo (DOI to be assigned on release).
+\url{https://github.com/maceoCK/h668-z37} and archived on Zenodo (DOI to be assigned on release). The
+verifiable certificates are included: the $2901$ enumerated orbit matrices (each checkable against
+$R^2+R-83I=3071J$ by the bundled verifier) and the independent coset-compatible enumeration giving count
+$0$ for each $|H|\in\{4,6,9,12,18,36\}$ (Theorem~\ref{thm:cyclo}(a)).
+
+\appendix
+\section{A square-divisor spectral filter for $\mathrm{LP}(333)$ adds no pruning}\label{sec:lp}
+The Legendre-pair route to $H(668)$ needs an $\mathrm{LP}(333)$; we record a self-contained negative
+result on one natural filter for it, independent of the orbit-matrix development above.
+Write $\PSD_x(s)=\bigl|\sum_{j}x_j\omega^{js}\bigr|^2$, $\omega=e^{2\pi i/\ell}$. Summing the LP
+condition gives the flat-spectrum form
+\begin{equation}\label{eq:flat}
+\PSD_u(s)+\PSD_v(s)=2\ell+2\quad(s\not\equiv0),\qquad \PSD_u(0)+\PSD_v(0)=2,
+\end{equation}
+so the row sums are $\pm1$; for $\ell=333$ the constant is $2\ell+2=668$.
+
+For $d\mid\ell$ the \emph{$d$-compression} $c^{(d)}_r=\sum_{j\equiv r\ (d)}x_j$ satisfies
+$\PAF_{c^{(d)}}(k)=\sum_{i\equiv k\ (d)}\PAF_x(i)$~\cite{dk-compress}, and $\PSD_x(\ell/d)$ depends only on
+$c^{(d)}$.
+
+\paragraph{Cube root (mod 3).} At $s=\ell/3$, write $\gamma=c^{(3)}(u)$, with $\gamma_r$ odd (a sum of
+$\ell/3=111$ values $\pm1$). Then $\PSD_u(\ell/3)=|\gamma_0+\gamma_1\zeta_3+\gamma_2\zeta_3^2|^2
+=\gamma_0^2+\gamma_1^2+\gamma_2^2-\gamma_0\gamma_1-\gamma_1\gamma_2-\gamma_2\gamma_0$, the Eisenstein norm.
+Since the $\gamma_r$ are odd and $1+\zeta_3+\zeta_3^2=0$, this value is divisible by $4$:
+$\PSD_u(\ell/3)=4(x^2+xy+y^2)$ with $x=(\gamma_0-\gamma_1)/2,\ y=(\gamma_1-\gamma_2)/2\in\Z$. With
+\eqref{eq:flat} this gives the necessary condition
+\begin{equation}\label{eq:loeschian}
+\tfrac{\ell+1}{2}=167=L_u+L_v,\qquad L_u,L_v\ \text{Loeschian (values of }x^2+xy+y^2).
+\end{equation}
+A short enumeration recovers exactly the Kotsireas--Koutschan spectrum~\cite{kk-mod3}: $16$ admissible
+values of $\PSD_u(\ell/3)$, all $\equiv 4\pmod{12}$, forming $8$ complementary Loeschian pairs summing to
+$167$.
+
+\paragraph{Ninth root (mod 9): the square-divisor refinement.} Since $9\mid 333$, one may also evaluate at
+a primitive $9$th root $s=\ell/9$. With $c=c^{(9)}(u)$ (entries odd), the same parity argument gives
+$\PSD_u(\ell/9)=4\,|E(\zeta_9)|^2$ for $E\in\Z[\zeta_9]$, a totally non-negative element of the cubic field
+$K=\Q(\zeta_9)^+=\Q(\cos\tfrac{2\pi}{9})$, and \eqref{eq:flat} reads $167=N_u+N_v$ in $\mathcal O_K$ with
+$N_u,N_v$ totally non-negative. This is a genuine cubic-field condition, and no published filter uses a
+prime-power (rather than prime) frequency. One might hope it strengthens \eqref{eq:loeschian}. It does not.
+
+\begin{proposition}[Square-divisor filter adds no pruning]\label{prop:ninth}
+For every length $\ell\in\{27,45,63\}$ (i.e.\ $\ell=9m$ with $m\in\{3,5,7\}$), every $\bmod\,3$-admissible
+state $(\gamma,\gamma')$ (a pair of odd triples with row sums $\pm1$ and
+$\sum\gamma_r^2+\sum\gamma_r'^2=4m+2$) is the $3$-compression of a valid length-$9$ compressed Legendre
+pair $(c,c')$. Hence the ninth-root condition is implied by the cube-root condition and provides no
+additional pruning of the spectrum.
+\end{proposition}
+
+\begin{proof}[Verification]
+For each $\ell$ we enumerate all length-$9$ integer pairs $(c,c')$ with odd entries in $[-m,m]$, row sums
+$\pm1$, and $\PAF_c(k)+\PAF_{c'}(k)=-2m$ ($k\neq0$), $=2\ell-2m+2$ ($k=0$); we form the set of $3$-compressions
+$(c^{(3)},c'^{(3)})$ and check it equals the full set of $\bmod\,3$-admissible states. The counts are:
+$\ell=27$: $250{,}128$ pairs, all $288$ states realized; $\ell=45$: $1{,}163{,}808$ pairs, all $288$ realized;
+$\ell=63$: $9{,}385{,}956$ pairs, all $756$ realized. In every case the number of $\bmod\,3$-admissible states
+that fail to lift is $0$.
+\end{proof}
+
+\begin{remark}
+The case $\ell=45$ has $(\ell+1)/2=23$, prime and $\equiv2\pmod3$ (the same arithmetic type as
+$167=(333+1)/2$), so the negative result is tested on a length representative of $333$, not merely on small
+toys. Structurally, the $9$-compression space is enormous and is a weak filter; the cube-root norm already
+captures all spectral information available at the $3$-part. We conclude that effort on $\mathrm{LP}(333)$
+should not be directed at square-divisor spectral filters.
+\end{remark}
 
 \begin{thebibliography}{99}
 \bibitem{cati} D.~Cati and D.~V.~Pasechnik, \emph{Implementing Hadamard matrices in {SageMath}},
@@ -355,6 +411,8 @@ D.~\v{Z}.~\DJ okovi\'c, V.~Ganesh, \emph{A SAT+CAS method for enumerating Willia
 Discrete Math.\ \textbf{311} (2011), 132--144.
 \bibitem{crnkovic} D.~Crnkovi\'c, M.~Maksimovi\'c, B.~G.~Rodrigues and S.~Rukavina, \emph{Self-orthogonal
 codes from orbit matrices of strongly regular graphs}, Adv.\ Math.\ Commun.\ (2018).
+\bibitem{maksimovic} M.~Maksimovi\'c, \emph{Enumeration of regular two-graphs on up to $50$ vertices via
+orbit matrices of prescribed automorphisms}, (2023).
 \bibitem{adt} W.~de~Launey and D.~L.~Flannery, \emph{Algebraic Design Theory}, Math.\ Surveys Monogr.\
 \textbf{175}, Amer.\ Math.\ Soc., 2011.
 \end{thebibliography}
