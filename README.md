@@ -57,6 +57,7 @@ The paper is in [`paper/h668_z37.pdf`](paper/h668_z37.pdf) (source `paper/h668_z
 
 ```
 paper/        h668_z37.tex, h668_z37.pdf   the paper
+lean/         Lean 4 / Mathlib formalization of the collapse theorem (machine-checked, no sorry)
 code/         all validated machinery + data + reference notes
   conf_core.py              block-circulant SRG machinery (validated on Paley graphs)
   conference_z37.py         the Z₃₇ reduction
@@ -131,6 +132,15 @@ python verify_certificates.py
 #   [complete enumeration] orbit_all_sym.txt: 2901 matrices ... VERIFIED
 #   [Theorem 1(a)] coset-compatible orbit-matrix counts (independent C++ search):
 #     e=4,6,9,12,18,36: count 0 -> NO H-cyclotomic srg CERTIFIED
+```
+
+**Formal verification (Lean 4).** The paper's central *trace-linearity collapse* theorem, the
+moment-collapse it generalizes, and the supporting arithmetic (`a ∈ {3,4,5,6}`; `83` not self-conjugate
+mod 37) are machine-checked in [`lean/`](lean/) against Mathlib `v4.30.0`, with **no `sorry`** and depending
+only on the standard axioms (`propext`, `Classical.choice`, `Quot.sound`):
+
+```bash
+cd lean && lake exe cache get && lake build       # builds H668lean.Collapse
 ```
 
 **Orders 2 and 3 (OPEN).** These reduce to a per-skeleton cyclotomic *lift*. The sound solver

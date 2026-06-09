@@ -43,9 +43,9 @@ invariant, spectral or character-theoretic or association-scheme/Krein, to be de
 matrix, so any obstruction must be non-linear in the $\{0,1\}$ connection-set indicators), while confining a
 hypothetical order-$2$ solution to $\theta$-multiplicity $a\in\{4,5\}$; and (iv) document that a base-point
 gauge-fixing routinely used to accelerate SAT search becomes \emph{unsound} once a multiplier constraint is
-imposed. Parallel-tempering evidence points to nonexistence. We release validated open-source code and the
-enumeration; an appendix records a negative result on square-divisor spectral filters for the equivalent
-Legendre pair $\mathrm{LP}(333)$.
+imposed. Parallel-tempering evidence points to nonexistence. We release validated open-source code, the
+enumeration, and a Lean~4 formalization of the collapse theorem; an appendix records a negative result on
+square-divisor spectral filters for the equivalent Legendre pair $\mathrm{LP}(333)$.
 \end{abstract}
 
 \section{Introduction}
@@ -278,6 +278,13 @@ $\operatorname{tr}(\varphi A)=\sum_{i,g}A_{(i,-g),(i,g)}=\sum_{i,g}[\,2g\in D[i]
 finishes the claim.
 \end{proof}
 
+\begin{remark}[Formal verification]
+Theorem~\ref{thm:collapse} and the moment collapse it generalizes are formalized in Lean~4 with Mathlib
+(in \texttt{h668lean/} in the repository): the proof terms carry no \texttt{sorry} and depend only on the
+standard axioms \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}. The supporting arithmetic
+($83$ not self-conjugate mod $37$, and $a\in\{3,4,5,6\}$) is likewise machine-checked.
+\end{remark}
+
 \begin{remark}[Why character and multiplier methods are inert]\label{rem:inert}
 Two consequences sharpen Theorem~\ref{thm:collapse}. (a) In the group ring $\Z[\Z_{37}]$ (generator $X$) the
 strong-regularity identity reads $B^2+B-83I_9=83\,T\,E_9$ with $B=(B_{ij})$ the block-indicator matrix,
@@ -322,7 +329,9 @@ $\mathrm{srg}(25,12,5,6)$ skeleton) is openly available at
 \url{https://github.com/maceoCK/h668-z37} and archived on Zenodo (DOI to be assigned on release). The
 verifiable certificates are included: the $2901$ enumerated orbit matrices (each checkable against
 $R^2+R-83I=3071J$ by the bundled verifier) and the independent coset-compatible enumeration giving count
-$0$ for each $|H|\in\{4,6,9,12,18,36\}$ (Theorem~\ref{thm:cyclo}(a)).
+$0$ for each $|H|\in\{4,6,9,12,18,36\}$ (Theorem~\ref{thm:cyclo}(a)). The repository also includes a Lean~4
+/ Mathlib formalization of Theorem~\ref{thm:collapse} and its supporting arithmetic, machine-checked free
+of \texttt{sorry}.
 
 \appendix
 \section{A square-divisor spectral filter for $\mathrm{LP}(333)$ adds no pruning}\label{sec:lp}
