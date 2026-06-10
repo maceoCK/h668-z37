@@ -30,9 +30,10 @@
 \begin{abstract}
 A Hadamard matrix of order $668 = 4\cdot 167$ is the smallest order whose existence is unknown; equivalently
 no symmetric conference matrix $C(334)$, regular two-graph on $334$ points, or strongly regular graph
-$\mathrm{srg}(333,166,82,83)$ is known. Assuming a fixed-point-free automorphism of order $37$, permitted by
-the eigenvalue-field obstruction (unlike the group-developed Cayley case), we reduce
-$\mathrm{srg}(333,166,82,83)$ to a $9\times9$ array of circulants over $\Z_{37}$, the strong-regularity
+$\mathrm{srg}(333,166,82,83)$ is known. We prove every order-$37$ automorphism of such a graph is
+necessarily fixed-point-free (a quotient-trace pincer, sharp exactly at the fixed-point-free case), and
+order $37$ is permitted by the eigenvalue-field obstruction (unlike the group-developed Cayley case); so
+all order-$37$ symmetry reduces to a $9\times9$ array of circulants over $\Z_{37}$, the strong-regularity
 identity becoming a per-character condition $M_t^2+M_t-83I=0$ over $\Z[\zeta_{37}]$. We then (i) completely
 enumerate, via a sound symmetry reduction, the $2901$ admissible $9\times9$ orbit matrices, the necessary
 skeletons of any such graph; (ii) prove by two lift-free arguments that \emph{no} cyclotomically-structured
@@ -105,8 +106,44 @@ nontrivial eigenvalue $(-1\pm3\sqrt{37})/2\in\Z[\zeta_3]$, impossible since $\Q(
 \Q(\zeta_3)$. \end{proof}
 
 Lemma~\ref{lem:cayley} rules out the \emph{regular} automorphism group; it does not rule out individual
-automorphisms. We therefore consider a fixed-point-free automorphism $\sigma$ of order $37$. Since
-$37\mid 333$ ($333=9\cdot37$), such $\sigma$ partitions the vertices into $9$ orbits of size
+automorphisms. We consider an automorphism $\sigma$ of order $37$. A priori $\sigma$ could fix
+$37c$ vertices ($0\le c\le 9$, by orbit counting); the next proposition shows the fixed-point-free
+case is the only one, so the reduction below covers \emph{all} order-$37$ symmetry.
+
+\begin{proposition}[Order-$37$ automorphisms are fixed-point-free]\label{prop:fpf}
+Every automorphism of order $37$ of an $\mathrm{srg}(333,166,82,83)$ acts without fixed points.
+\end{proposition}
+\begin{proof}
+Suppose $\sigma$ fixes $f=37c$ vertices, $1\le c\le 8$, and let $s=9-c$ be the number of
+$37$-orbits. Since an invariant subset of a $37$-cycle is empty or everything, each fixed vertex is
+adjacent to all or none of each orbit; writing $a_u$ for the number of orbits dominated by the fixed
+vertex $u$, its fixed-degree is $166-37a_u$, and we set $G=\sum_u a_u$. The partition into fixed
+singletons and orbits is equitable; its quotient $Q$ has spectrum inside
+$\{166,\theta,\tau\}$ with $166$ simple (Perron) and $\theta,\tau$ paired by rationality
+(irreducibility of $x^2+x-83$, discriminant $333$ non-square), so
+$\operatorname{char}(Q)=(x-166)(x^2+x-83)^{b}$ with $b=(f+s-1)/2=166-18s$. Let $B$ be the
+orbit-orbit block of $Q$ (entries $B_{OO'}=$ neighbours in $O'$ of a vertex of $O$; symmetric since
+orbits have equal size), $D=\operatorname{tr}B$ and $T$ its off-diagonal sum. Computing
+$\operatorname{tr}Q$ and $\operatorname{tr}Q^2$ once spectrally and once blockwise gives
+\[
+D=18s,\qquad \textstyle\sum_{O,O'}B_{OO'}^2 \;=\; 3136\,s-37G \;=\; 37T-2340\,s,
+\]
+the last equality via the row sums $\sum_{O'}B_{OO'}=166-\gamma_O$ ($\gamma_O=$ fixed vertices
+dominating $O$, $\sum_O\gamma_O=G$, whence $T=148s-G$). For $s=1$ this forces
+$\sum B^2=-2340<0$, absurd. For $2\le s\le 8$, Cauchy--Schwarz on the diagonal and off-diagonal
+entries separately gives $\sum B^2\ge 324s+T^2/(s(s-1))$, hence
+\[
+q(T)\;:=\;T^2-37s(s-1)\,T+2664\,s^2(s-1)\;\le\;0,
+\]
+whose discriminant $s^2(s-1)\bigl[1369(s-1)-10656\bigr]$ is negative for all $s\le 8$ (as
+$1369\cdot7=9583<10656$): no real $T$ satisfies it. Hence $c=0$. The bound is sharp: at $s=9$ the
+same system is satisfiable with slack ($\Phi(9)=+296$), as witnessed by the enumerated orbit
+matrices. Every identity and the exhaustive integer scan over $G$ are verified in
+\texttt{fpf\_check.py}, including end-to-end validation on conference graphs with genuine
+fixed-point automorphisms (no false kills).
+\end{proof}
+
+By Proposition~\ref{prop:fpf}, $\sigma$ partitions the vertices into $9$ orbits of size
 $37$; we identify each orbit with $\Z_{37}$ so that $\sigma$ acts as $+1$. The adjacency matrix becomes a
 $9\times9$ array of circulants: writing $D[i][j]\subseteq\Z_{37}$ for the connection set of block $(i,j)$,
 $A_{(i,a),(j,b)}=1 \iff (b-a)\bmod 37\in D[i][j]$, with $D[j][i]=-D[i][j]$ (symmetry) and
