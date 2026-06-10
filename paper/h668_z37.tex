@@ -143,6 +143,47 @@ matrices. Every identity and the exhaustive integer scan over $G$ are verified i
 fixed-point automorphisms (no false kills).
 \end{proof}
 
+The companion result for the other prime of $333$ goes the opposite way, by an even shorter
+parity argument.
+
+\begin{proposition}[No fixed-point-free $3$-power automorphisms]\label{prop:no3}
+No $\mathrm{srg}(333,166,82,83)$ admits a fixed-point-free automorphism of order $3^e$
+($e\ge1$). More generally, no conference graph on a non-square number $v$ of vertices admits a
+fixed-point-free automorphism of $p$-power order for any prime $p\equiv3\pmod4$.
+\end{proposition}
+\begin{proof}
+\emph{Parity lemma: for any odd-order $H\le\operatorname{Aut}\Gamma$ the number $N$ of orbits
+satisfies $N\equiv v\pmod 4$.} The orbit partition is equitable and its (rational, integer) quotient
+$Q$ has spectrum in $\{k,\theta,\tau\}$ with $k$ simple and $\theta,\tau$ of equal multiplicity
+$(N-1)/2$ (irreducibility of $x^2+x-(k-\mu)$ over $\Q$, as $v$ is non-square), so
+$\operatorname{tr}Q=k-(N-1)/2=(v-N)/2$. But each diagonal entry of $Q$ is the degree of a
+vertex-transitive graph on an odd number of vertices (orbit sizes are odd), hence even; so
+$(v-N)/2$ is even, i.e.\ $N\equiv v\pmod4$.
+For $v=333\equiv1$: a fixed-point-free $\sigma$ of order $3$ has $N=111\equiv3\pmod4$,
+contradiction. For order $3^e$, $e\ge2$ (where the single test can pass, e.g.\ $37$ orbits of size
+$9$): every $\langle\sigma\rangle$-orbit has size a positive power of $3$ and splits into exactly
+three $\langle\sigma^3\rangle$-orbits, so $N(\sigma^3)=3N(\sigma)$; the lemma applied to both
+groups (it does not require freeness, fixed points being singleton orbits) gives
+$N(\sigma)\equiv1$ and $3N(\sigma)\equiv1\pmod4$, contradiction. In general, for
+$p\equiv3\pmod4$ the same two applications give $N\equiv1$ and $pN\equiv1\pmod4$, impossible.
+Validated numerically on real conference-graph automorphisms; the genuine fixed-point-free
+order-$3$ translation of Paley($9$) escapes precisely because $9$ is a square (the quotient
+multiplicities need not pair).
+\end{proof}
+
+\begin{corollary}[Vertex-transitive coverage]\label{cor:vt}
+Modulo the classification of finite simple groups (via Fein--Kantor--Schacher: every transitive
+permutation group of degree $>1$ contains a fixed-point-free element of prime-power order), every
+\emph{vertex-transitive} $\mathrm{srg}(333,166,82,83)$ admits a fixed-point-free automorphism of
+order exactly $37$. Hence the complete orbit-matrix enumeration below covers, in particular, all
+vertex-transitive examples.
+\end{corollary}
+\begin{proof}
+A fixed-point-free element of order $q^m$ has all orbit sizes divisible by $q$, so $q\mid333$,
+$q\in\{3,37\}$; $q=3$ is impossible by Proposition~\ref{prop:no3}, and $37^2>333$ forces order
+$37$.
+\end{proof}
+
 By Proposition~\ref{prop:fpf}, $\sigma$ partitions the vertices into $9$ orbits of size
 $37$; we identify each orbit with $\Z_{37}$ so that $\sigma$ acts as $+1$. The adjacency matrix becomes a
 $9\times9$ array of circulants: writing $D[i][j]\subseteq\Z_{37}$ for the connection set of block $(i,j)$,
