@@ -1,0 +1,422 @@
+[
+ {
+  "tpl": "sc_tpl_221_0.txt",
+  "seed": 1,
+  "best": 1644,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_221_0.txt",
+  "seed": 2,
+  "best": 1684,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_221_0.txt",
+  "seed": 3,
+  "best": 1632,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_221_0.txt",
+  "seed": 4,
+  "best": 1796,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_221_0.txt",
+  "seed": 5,
+  "best": 1592,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_221_0.txt",
+  "seed": 6,
+  "best": 1698,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_221_0.txt",
+  "seed": 7,
+  "best": 1592,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_221_0.txt",
+  "seed": 8,
+  "best": 1600,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_221_0.txt",
+  "seed": 9,
+  "best": 1626,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_221_0.txt",
+  "seed": 10,
+  "best": 1708,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_221_1.txt",
+  "seed": 1,
+  "best": 1664,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_221_1.txt",
+  "seed": 2,
+  "best": 1636,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_221_1.txt",
+  "seed": 3,
+  "best": 1680,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_221_1.txt",
+  "seed": 4,
+  "best": 1606,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_221_1.txt",
+  "seed": 5,
+  "best": 1638,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_221_1.txt",
+  "seed": 6,
+  "best": 1586,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_221_1.txt",
+  "seed": 7,
+  "best": 1638,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_221_1.txt",
+  "seed": 8,
+  "best": 1654,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_221_1.txt",
+  "seed": 9,
+  "best": 1676,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_221_1.txt",
+  "seed": 10,
+  "best": 1746,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_2.txt",
+  "seed": 1,
+  "best": 1554,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_2.txt",
+  "seed": 2,
+  "best": 1672,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_2.txt",
+  "seed": 3,
+  "best": 1668,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_2.txt",
+  "seed": 4,
+  "best": 1726,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_2.txt",
+  "seed": 5,
+  "best": 1642,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_2.txt",
+  "seed": 6,
+  "best": 1670,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_2.txt",
+  "seed": 7,
+  "best": 1800,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_2.txt",
+  "seed": 8,
+  "best": 1618,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_2.txt",
+  "seed": 9,
+  "best": 1686,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_2.txt",
+  "seed": 10,
+  "best": 1770,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_3.txt",
+  "seed": 1,
+  "best": 1724,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_3.txt",
+  "seed": 2,
+  "best": 1674,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_3.txt",
+  "seed": 3,
+  "best": 1618,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_3.txt",
+  "seed": 4,
+  "best": 1678,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_3.txt",
+  "seed": 5,
+  "best": 1522,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_3.txt",
+  "seed": 6,
+  "best": 1580,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_3.txt",
+  "seed": 7,
+  "best": 1660,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_3.txt",
+  "seed": 8,
+  "best": 1786,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_3.txt",
+  "seed": 9,
+  "best": 1702,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_3.txt",
+  "seed": 10,
+  "best": 1656,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_4.txt",
+  "seed": 1,
+  "best": 1654,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_4.txt",
+  "seed": 2,
+  "best": 1606,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_4.txt",
+  "seed": 3,
+  "best": 1642,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_4.txt",
+  "seed": 4,
+  "best": 1640,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_4.txt",
+  "seed": 5,
+  "best": 1654,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_4.txt",
+  "seed": 6,
+  "best": 1682,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_4.txt",
+  "seed": 7,
+  "best": 1644,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_4.txt",
+  "seed": 8,
+  "best": 1712,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_4.txt",
+  "seed": 9,
+  "best": 1676,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_4.txt",
+  "seed": 10,
+  "best": 1754,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_5.txt",
+  "seed": 1,
+  "best": 1650,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_5.txt",
+  "seed": 2,
+  "best": 1536,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_5.txt",
+  "seed": 3,
+  "best": 1612,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_5.txt",
+  "seed": 4,
+  "best": 1510,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_5.txt",
+  "seed": 5,
+  "best": 1656,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_5.txt",
+  "seed": 6,
+  "best": 1652,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_5.txt",
+  "seed": 7,
+  "best": 1662,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_5.txt",
+  "seed": 8,
+  "best": 1570,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_5.txt",
+  "seed": 9,
+  "best": 1696,
+  "sol": null,
+  "verified": null
+ },
+ {
+  "tpl": "sc_tpl_422_5.txt",
+  "seed": 10,
+  "best": 1660,
+  "sol": null,
+  "verified": null
+ }
+]
