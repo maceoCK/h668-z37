@@ -390,6 +390,34 @@ unions of $H$-cosets and cardinalities; and $M'_t=M_{tu}$, so the Galois pinning
 $a'=a_{u}=a$ or $9-a$ according to $\chi(u)$.
 \end{proof}
 
+\paragraph{A self-complementary ansatz.} Paley conference graphs are self-complementary, so it is
+natural to ask which skeletons could carry a self-complementary $\Z_{37}$-symmetric graph: a
+complementing isomorphism $\sigma:\Gamma\to\overline\Gamma$ normalizing $\langle\rho\rangle$ has the
+form $\sigma(i,g)=(\pi(i),cg+b_i)$ with $\pi$ a complementing permutation of $R$ and, as we show,
+$c$ of multiplicative order exactly $4$ ($c=\pm1$ contradicts the fixed-orbit diagonal relation
+$D=\Z_{37}^\ast\setminus cD$), WLOG $c=6$ and $b=0$ (the per-orbit coordinate gauge acts
+transitively on the solutions of the four linear twist-consistency conditions; a rank computation
+over $\mathbb F_{37}$, verified for every class and permutation). The blocks then satisfy
+$D[\pi i][\pi j]=\mathrm{co}(6\,D[i][j])$, leaving $415$ free bits over three diagonal and ten
+off-diagonal orbit representatives.
+
+\begin{proposition}[Self-complementary skeletons]\label{prop:selfcomp}
+Exactly $3$ of the $625$ orbit-matrix classes are self-complementary (exact canonicalization over
+all relabelings); every complementing permutation has cycle type $(4,4,1)$ and fixed-orbit diagonal
+$18$, and along each $4$-cycle the diagonal alternates $(d,36-d,d,36-d)$.
+\end{proposition}
+
+For the first of the three classes the $\sigma$-equivariant constraint system is \textsc{infeasible}
+(CP-SAT, seconds, reproduced over both permutations and four random seeds; the encoding is validated
+in both failure directions, including acceptance and exact extraction of a planted equivariant
+configuration at the production instance). The remaining two classes are undecided: conflict-driven
+search returns \textsc{unknown} at $2.5$ hours across all permutations and seeds, and simulated
+annealing over the $415$-bit space exhibits a reproducible plateau (best objectives
+$1522$--$1800$ over $60$ independent runs) whose residuals are spread, sign-symmetric and
+seed-dependent, i.e.\ glassy frustration rather than a structured congruence obstruction. The
+entire self-complementary question for $\mathrm{srg}(333,166,82,83)$ thus rests on two skeleton
+classes and at most six $415$-bit instances.
+
 That the order-$2$ case resists our tools is structural, not accidental: the standard linear-algebraic and
 character-theoretic obstructions are all \emph{trace-linear}, and they collapse.
 

@@ -175,6 +175,7 @@ int main(int argc, char** argv){
     mt19937 rng(seed);
     time_t t0 = time(nullptr);
     ll bestEver = -1;
+    static unsigned char bestRep[16][37];     // state at bestEver (for residual analysis)
 
     // <c>-orbit structure for type-2 reps: orbits {x, cx, -x, -cx}
     vector<vector<int>> corbs;
@@ -287,10 +288,29 @@ int main(int argc, char** argv){
         }
         if (bestEver < 0 || best < bestEver){
             bestEver = best;
+            memcpy(bestRep, repBit, sizeof repBit);
             printf("BEST obj=%lld seed=%u %.0fs\n", bestEver, seed, difftime(time(nullptr), t0));
             fflush(stdout);
         }
     }
+    // residual fingerprint of the best state found
+    memcpy(repBit, bestRep, sizeof repBit);
+    expandAll(); convAll();
+    printf("BESTSTATE obj=%lld seed=%u\n", objAll(), seed);
+    for (int r = 0; r < NREP; r++){
+        printf("REPBITS %d :", r);
+        for (int d = 0; d < P; d++) if (repBit[r][d]) printf(" %d", d);
+        printf("\n");
+    }
+    for (int a = 0; a < NORB; a++)
+        for (int b = a; b < NORB; b++){
+            if (!isRepPair[a][b]) continue;
+            for (int g = 0; g < P; g++){
+                int lhs = conv[a][b][g] - (LAM - MU) * mem[a][b][g];
+                int res = lhs - rhsOf(a, b, g);
+                if (res) printf("RES %d %d %d %d\n", a, b, g, res);
+            }
+        }
     printf("RESULT best=%lld seed=%u\n", bestEver, seed);
     return 1;
 }
