@@ -41,7 +41,8 @@ the two finest multipliers $|H|\in\{2,3\}$ to a per-skeleton lift we leave open,
 \emph{collapse theorem} explaining the difficulty (the negation involution forces every trace-linear
 invariant, spectral or character-theoretic or association-scheme/Krein, to be determined by the orbit
 matrix, so any obstruction must be non-linear in the $\{0,1\}$ connection-set indicators), while confining a
-hypothetical order-$2$ solution to $\theta$-multiplicity $a\in\{4,5\}$; and (iv) document that a base-point
+hypothetical order-$2$ or order-$3$ solution to $\theta$-multiplicity $a=4$ with pinned diagonal coset
+counts, the order-$3$ case to exactly four orbit-matrix classes; and (iv) document that a base-point
 gauge-fixing routinely used to accelerate SAT search becomes \emph{unsound} once a multiplier constraint is
 imposed. Parallel-tempering evidence points to nonexistence. We release validated open-source code, the
 enumeration, and a Lean~4 formalization of the collapse theorem; an appendix records a negative result on
@@ -139,10 +140,12 @@ tests.
 sound symmetry reduction (within each maximal equal-diagonal group of orbits, sort by connection to a fixed
 orbit), enumerates \emph{all} admissible orbit matrices up to orbit relabeling: exactly $2901$
 representatives, with every diagonal class exhausted. (An earlier run without the reduction had confirmed
-$\ge1678$ before several highly symmetric diagonals exceeded a $4\times10^{9}$-node cap.) These $2901$ form
-the complete set of necessary skeletons, so the lift-free arguments of Theorem~\ref{thm:cyclo} apply to all
-of them; the remaining obstruction for the fine multipliers is the \emph{lift} to connection sets satisfying
-Proposition~\ref{prop:char} (Remark~\ref{rem:open}). A representative skeleton
+$\ge1678$ before several highly symmetric diagonals exceeded a $4\times10^{9}$-node cap.) The symmetry
+reduction is partial, so representatives may repeat isomorphism types; an exact canonical-form pass
+(lexicographic minimum over all $9!$ relabelings) collapses the $2901$ representatives to exactly $625$
+isomorphism classes. These form the complete set of necessary skeletons, so the lift-free arguments of
+Theorem~\ref{thm:cyclo} apply to all of them; the remaining obstruction for the fine multipliers is the
+\emph{lift} to connection sets satisfying Proposition~\ref{prop:char} (Remark~\ref{rem:open}). A representative skeleton
 (row sums $166$, $\operatorname{tr}=162$, spectrum $\{166,\,r^{4},\,s^{4}\}$) is
 \[
 R=\begin{psmallmatrix}
@@ -194,18 +197,42 @@ reconstructing the Paley graphs $P(9),P(25),P(49)$ (orbit-matrix-free) and $P(13
 
 \begin{remark}[The fine multipliers $|H|\in\{2,3\}$ are open]\label{rem:open}
 The orbit-matrix argument (a) cannot reach $|H|\in\{2,3\}$: order $2$ imposes no congruence (every $R$ is
-compatible), and the order-$3$-compatible orbit matrices \emph{do} exist (a complete backtracking
-enumeration finds exactly $960$, all with diagonal $(12,12,18,18,18,18,18,24,24)$). Both cases reduce to the
-per-orbit-matrix cyclotomic lift over the complete set of $2901$ admissible orbit matrices. We do not
+compatible), and order-$3$-compatible orbit matrices \emph{do} exist. The compatibility congruences
+(diagonal $\equiv0\bmod 6$, off-diagonal $\bmod\,3\in\{0,1\}$) select exactly $28$ of the $2901$
+representatives, and an exact canonical-form pass shows these constitute exactly \emph{four} isomorphism
+classes, all with diagonal $(12,12,18,18,18,18,18,24,24)$ and exactly $18$ unordered block pairs containing
+$0$; the four classes consist of one complementary pair and two self-complementary classes. (An independent
+mod-$3$-restricted enumeration without the equal-diagonal reduction finds $960$ matrices; they collapse to
+the same four classes, a consistency check.) Both fine cases reduce to the per-orbit-matrix cyclotomic lift
+over the complete set of admissible orbit matrices: four classes for order $3$, all $625$ for order $2$. We do not
 resolve this lift. A base-point gauge-fixing (forcing $0\in D[0][i]$) that greatly accelerates the
 \emph{general} lift is \emph{unsound} under a multiplier constraint: a multiplier-invariant set shifted by
 $c\neq0$ is no longer invariant (as $(\mathrm{mult}-1)c=0\Rightarrow c=0$), so the cyclotomic ansatz has no
 base-point freedom, and forcing $0\in D[0][i]$ wrongly rejects even the genuine negation-invariant Paley
 graph $P(25)$. Without that gauge, neither the element-level nor a coset-level SAT encoding decides a single
 $|H|\in\{2,3\}$ instance within $30$ minutes. We therefore leave $|H|\in\{2,3\}$ open. The parallel-tempering
-evidence below points to nonexistence, and for $|H|=2$ Proposition~\ref{prop:order2} confines a hypothetical
-solution to $\theta$-multiplicity $a\in\{4,5\}$ and the discussion shows it resists every trace-linear
-obstruction; but a proof remains open.
+evidence below points to nonexistence, and Propositions~\ref{prop:order2} and~\ref{prop:order3} confine a
+hypothetical solution to $\theta$-multiplicity $a\in\{4,5\}$ ($a=4$ after Lemma~\ref{lem:decim}) with
+pinned diagonal coset counts; but a proof remains open.
+
+We also quantify why \emph{exhaustive} search cannot certify these cases. We implemented a coset-level
+backtracking solver (validated for soundness and completeness against an independent definitional
+enumeration on ten small instances, and against the Paley anchors) with exact per-class convolution
+propagation, adaptive autocorrelation interval bounds, Cauchy-interlacing spectral pruning at every node,
+the pinning of Proposition~\ref{prop:order3}, and a sound decimation symmetry break. The structural
+obstacle is informational: block autocorrelations satisfy $\mathrm{conv}(D,-D)(g)=\mathrm{conv}(D,-D)(-g)$,
+so the flat-autocorrelation system of each orbit row imposes only $6$ independent exact conditions on its
+$8$ off-diagonal blocks ($\sim10^{2.8}$ admissible coset-unions each), leaving $\sim10^{15}$ admissible
+single-row configurations per diagonal assignment; an order-$3$ skeleton admits $\sim10^{7}$ diagonal
+assignments (after pinning and the decimation break). The contradiction mass lives in the cross-row
+equations, which close only when both rows are complete; at the measured $2.8\times10^{7}$ nodes/second
+the certificate tree is out of reach by many orders of magnitude. Conflict-driven learning is the only
+complete method we know that could compress such a certificate; a calibration sweep of the order-$3$
+case (the class-level model above with the pinning of Proposition~\ref{prop:order3} and $a=4$, an
+encoding validated on the Paley anchors and on brute-force-confirmed empty instances) returned
+\textsc{unknown} on every one of the four skeleton classes at $2$--$2.5$ hours of $8$-worker CP-SAT
+per instance, so closure appears to require either proof-logged SAT with stronger in-solver algebraic
+propagation, or a genuinely new non-linear invariant.
 \end{remark}
 
 \paragraph{Unstructured lift (parallel tempering).} For the general (unstructured) lift we ran a batched
@@ -215,9 +242,9 @@ objective to $0$ (a verified lift) within $18$ steps. On $\mathrm{srg}(333,166,8
 of the $634$ skeletons with $8192$ chains and replica exchange per skeleton ($\approx 3.7\times10^6$ chains
 total), the objective plateaued at $\approx 3.9\times10^5$ with no lift found.
 
-\paragraph{The order-2 residue: a sharper ceiling.} Of the two open cases $|H|\in\{2,3\}$
-(Remark~\ref{rem:open}), the order-$2$ (negation-invariant) case admits a sharp structural analysis,
-recorded here: how far it can be pushed, and why it resists. Since $-1$ is a quadratic residue mod $37$, negation-invariance of every block makes each
+\paragraph{The fine multipliers: sharper ceilings.} Both open cases $|H|\in\{2,3\}$
+(Remark~\ref{rem:open}) admit a sharp structural analysis, recorded here: how far each can be pushed, and
+why they resist. We begin with order $2$. Since $-1$ is a quadratic residue mod $37$, negation-invariance of every block makes each
 character matrix $M_t$ a \emph{real} symmetric $9\times9$ matrix with eigenvalues in $\{\theta,\tau\}$,
 $\theta,\tau=(-1\pm3\sqrt{37})/2$; write $a_t$ for the $\theta$-multiplicity of $M_t$. The Galois group
 $\Z_{37}^\ast/\{\pm1\}$ permutes the $M_t$ and acts on $\sqrt{37}$ through the Legendre symbol, forcing
@@ -238,6 +265,51 @@ diagonal $(18,\dots,18)$; an exhaustive backtracking search, complete under the 
 symmetry ($1.9\times10^{8}$ nodes, corroborated to $9\times10^{10}$ nodes by an independent reduction),
 finds \emph{no} admissible orbit matrix with constant diagonal $18$. Hence $a\in\{4,5\}$. The $N_g$ identity
 was validated on the negation-invariant graphs $P(13)$ and the $25$-orbit Paley graph of $\mathrm{GF}(5^3)$.
+\end{proof}
+
+The same Galois-pinning argument applies verbatim to the other open multiplier, with cosets of
+$H=\{1,10,26\}$ (the cube roots of unity mod $37$) in place of $\pm$~pairs. Since $H\le Q^{+}$
+(as $10=11^2$), each of the $12$ cosets of $H$ is wholly residue or non-residue ($6$ each), the Gauss
+periods $\eta_c=\sum_{x\in c}\zeta_{37}^x$ form an integral basis of the degree-$12$ subfield
+$\Q(\zeta_{37})^H$, and $1=-\sum_c\eta_c$, $\sqrt{37}=\sum_c\chi(c)\,\eta_c$.
+
+\begin{proposition}[Order-3 multiplicity reduction]\label{prop:order3}
+For an order-$3$-cyclotomic $\Z_{37}$-symmetric $\mathrm{srg}(333,166,82,83)$, with
+$a$ the $\theta$-multiplicity of $M_1$ and $n_c:=\#\{i: c\subseteq D[i][i]\}$ the diagonal coset
+counts, one has
+\[
+n_c \;=\; 3a-9\ \ \text{on the six residue cosets},\qquad n_c \;=\; 18-3a\ \ \text{on the six
+non-residue cosets},
+\]
+hence $a\in\{3,4,5,6\}$; and $a\in\{3,6\}$ is impossible (it forces every diagonal block to be the union
+of all non-residue, resp.\ all residue, cosets, so the orbit matrix has constant diagonal $18$,
+contradicting the same exhaustive search as in Proposition~\ref{prop:order2}). Hence $a\in\{4,5\}$: each
+residue coset lies in exactly $3a-9\in\{3,6\}$ of the nine diagonal blocks and each non-residue coset in
+$18-3a$.
+\end{proposition}
+\begin{proof}[Proof sketch]
+Each diagonal block is a disjoint union of $H$-cosets ($-1\in Q^{+}$ pairs cosets $c\leftrightarrow-c$
+within a quadratic class), so $\operatorname{tr}M_1=\sum_c n_c\eta_c$. Equating with
+$a\theta+(9-a)\tau=-\tfrac92+\tfrac{3(2a-9)}{2}\sqrt{37}$ expanded in the period basis gives
+$n_c=\tfrac{9+3(2a-9)\chi(c)}{2}$, and the claims follow as before. The period-basis identities and the
+count formula were validated numerically (nonsingularity of the Galois matrix of periods, the Gauss-sum
+expansion on every conjugate, exact recovery of planted coset counts, and the $1$-orbit anchor $P(13)$
+with $H=\{1,3,9\}$, where $D=Q^{+}(13)$ realizes $n_c=(1+\chi(c))/2$).
+\end{proof}
+
+\begin{lemma}[Decimation normalization]\label{lem:decim}
+For $|H|\in\{2,3\}$ and $u\in\Z_{37}^\ast$, replacing every block by $uD[i][j]$ yields an isomorphic
+$H$-cyclotomic graph with the same orbit matrix and $\theta$-multiplicity $a$ if
+$\chi(u)=1$, $9-a$ if $\chi(u)=-1$. Hence in Propositions~\ref{prop:order2} and~\ref{prop:order3} one may
+take $a=4$ without loss of generality. Similarly complementation preserves $\Z_{37}$-symmetry and the
+cyclotomic structure and maps $a\mapsto 9-a$ while complementing the orbit matrix
+($R[i][j]\mapsto 37-R[i][j]$ off-diagonal, $R[i][i]\mapsto 36-R[i][i]$); for order $3$ it interchanges
+the two complementary skeleton classes and fixes the two self-complementary ones.
+\end{lemma}
+\begin{proof}
+$(i,g)\mapsto(i,u^{-1}g)$ is an isomorphism from the decimated graph to the original; $u\cdot$ preserves
+unions of $H$-cosets and cardinalities; and $M'_t=M_{tu}$, so the Galois pinning gives
+$a'=a_{u}=a$ or $9-a$ according to $\chi(u)$.
 \end{proof}
 
 That the order-$2$ case resists our tools is structural, not accidental: the standard linear-algebraic and
@@ -296,7 +368,12 @@ $-1\notin\langle83\rangle$, so $83$ is not self-conjugate mod $37$ and the Turyn
 multiplier bounds impose nothing, the same arithmetic as the Paley graph $P(13)$, which exists. In
 particular the moment hierarchy collapses: as $A$ satisfies a quadratic, $\operatorname{tr}(A^k)$ is an
 affine function of $\operatorname{tr}A$ for every $k$, so no power-sum (eigenvalue-multiplicity) count
-beyond $R$ is available.
+beyond $R$ is available. (c) A further instance: reducing the $g=0$ (``zero-class'') convolution equations
+modulo $|H|$, where coset--coset intersections vanish, yields conditions on the pattern
+$Z=(R\bmod|H|)$ of blocks containing $0$, namely $(Z^2)_{ij}+Z_{ij}\equiv 83-83\cdot37\,[i{=}j]\
+(\mathrm{mod}\ |H|)$; but $Z\equiv R$, so this is exactly the orbit-matrix identity
+$R^2+R-83I=3071J$ reduced mod $|H|$, automatically satisfied by every admissible skeleton. The candidate
+``zero-pattern obstruction'' is the orbit matrix in disguise.
 \end{remark}
 
 Thus the order-$2$ obstruction, if any, lives entirely in the non-linear $\{0,1\}$-realizability of the
@@ -306,11 +383,13 @@ connection sets: the lift of Remark~\ref{rem:open}, which we leave open.
 We distinguish what is proven from what is evidence.
 \emph{Proven:} Proposition~\ref{prop:ninth} (square-divisor filters do not help $\mathrm{LP}(333)$);
 Proposition~\ref{prop:char} (the reduction); the complete enumeration of the $2901$ admissible orbit
-matrices; Theorem~\ref{thm:cyclo} (no cyclotomically-structured $\Z_{37}$ lift for the $6$ multiplier
-subgroups of order $\ge4$, by two lift-free arguments); and Proposition~\ref{prop:order2} (a hypothetical
-order-$2$ solution is confined to $\theta$-multiplicity $a\in\{4,5\}$ and resists every trace-linear
-obstruction). \emph{Open:} the cyclotomic lift for the two finest multipliers $|H|\in\{2,3\}$
-(Remark~\ref{rem:open}), which sound SAT does not decide in feasible time. \emph{Evidence:} the
+matrices ($625$ isomorphism classes); Theorem~\ref{thm:cyclo} (no cyclotomically-structured $\Z_{37}$ lift
+for the $6$ multiplier subgroups of order $\ge4$, by two lift-free arguments); Propositions~\ref{prop:order2}
+and~\ref{prop:order3} with Lemma~\ref{lem:decim} (a hypothetical order-$2$ or order-$3$ solution is confined
+to $\theta$-multiplicity $a=4$ with pinned diagonal coset counts, the order-$3$ case to exactly four
+skeleton classes, and both resist every trace-linear obstruction). \emph{Open:} the cyclotomic lift for the
+two finest multipliers $|H|\in\{2,3\}$ (Remark~\ref{rem:open}), which sound SAT does not decide in feasible
+time. \emph{Evidence:} the
 parallel-tempering plateau is a strong indication, from a search demonstrably able to find lifts when they
 exist, that no unstructured $\Z_{37}$-symmetric lift exists either, though it is not a proof. Taken together with
 Lemma~\ref{lem:cayley}, this makes a $\Z_{37}$-symmetric $\mathrm{srg}(333,166,82,83)$ unlikely, and
@@ -328,8 +407,12 @@ conference-to-Hadamard chain on $H(12),H(28),H(36)$, and recovery of a genuine l
 $\mathrm{srg}(25,12,5,6)$ skeleton) is openly available at
 \url{https://github.com/maceoCK/h668-z37} and archived on Zenodo (DOI to be assigned on release). The
 verifiable certificates are included: the $2901$ enumerated orbit matrices (each checkable against
-$R^2+R-83I=3071J$ by the bundled verifier) and the independent coset-compatible enumeration giving count
-$0$ for each $|H|\in\{4,6,9,12,18,36\}$ (Theorem~\ref{thm:cyclo}(a)). The repository also includes a Lean~4
+$R^2+R-83I=3071J$ by the bundled verifier), their $625$ canonical isomorphism-class representatives and the
+four order-$3$-compatible classes (exact lexicographic-minimum canonicalization over all $9!$ relabelings),
+the independent coset-compatible enumeration giving count $0$ for each $|H|\in\{4,6,9,12,18,36\}$
+(Theorem~\ref{thm:cyclo}(a)), the numerical validation of the period-basis pinning
+(Propositions~\ref{prop:order2},~\ref{prop:order3}), and the exhaustive coset-level solver of
+Remark~\ref{rem:open} with its soundness-and-completeness cross-validation harness. The repository also includes a Lean~4
 / Mathlib formalization of Theorem~\ref{thm:collapse} and its supporting arithmetic, machine-checked free
 of \texttt{sorry}.
 

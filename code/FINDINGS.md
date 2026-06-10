@@ -177,3 +177,70 @@ are empty for 333" pattern. CAVEAT: rules out only the cyclotomic-coset-structur
 SAVED skeleton sample (true skeleton count higher); NOT a full nonexistence. The remaining shot is the
 exact (unstructured, gauge-fixed, complete) sweep, but the cyclo negative makes it a LONGER shot
 (structured solutions, the likeliest to exist, are gone).
+
+## 9. Order-3 structural reduction, the four skeletons, and the measured search wall (2026-06-09)
+
+New sound results on the two open fine multipliers (all validated; code: `order3_pinning.py`,
+`canon_check.cpp`, `canon_all.cpp`, `cyclo_dfs.cpp`, `cyclo_validate.py`, `cyclo_cpsat.py`):
+
+- **Order-3 Galois pinning** (analog of the order-2 N_g reduction): for H = {1,10,26} ≤ QR(37), the
+  12 Gauss periods of Q(ζ37)^H form an integral basis; expanding Tr M₁ = aθ + (9−a)τ forces the
+  diagonal coset counts n_c = 3a−9 on the 6 residue cosets and 18−3a on the 6 non-residue cosets.
+  Hence a ∈ {3,4,5,6}; a ∈ {3,6} forces all-18 diagonal (killed by the complete uniform18
+  enumeration) ⇒ **a ∈ {4,5}**.
+- **Decimation normalization (new, applies to both fine orders)**: a quadratic-non-residue decimation
+  D ↦ uD is an isomorphism with a ↦ 9−a, so **WLOG a = 4** for |H| ∈ {2,3}.
+- **Skeleton classification**: of the 2901 complete representatives exactly 28 are order-3
+  coset-compatible; exact canonicalization (lexmin over 9!) shows they form **exactly 4 isomorphism
+  classes** (one complementary pair + two self-complementary), all with diagonal (12,12,18⁵,24,24).
+  The earlier independent 960-matrix enumeration collapses to the same 4 classes (consistency ✓).
+  Bonus census: the 2901 representatives are exactly **625 isomorphism classes**.
+- **Zero-pattern reduction is tautological**: reducing the g=0 convolution equations mod |H| gives
+  (Z²)_ij + Z_ij ≡ 83 (mod |H|) with Z = R mod |H| — exactly the orbit identity mod |H|; flat-RHS
+  strikes again. No free kill.
+- **The measured search wall**: a fully validated exhaustive coset-level DFS (exact class-level
+  convolution propagation, adaptive autocorrelation bounds, Cauchy-interlacing pruning, pinning,
+  decimation break, per-diagonal-pair precomputed candidate lists, last-block hash-join; 2.8e7
+  nodes/s; soundness+completeness certified against an independent definitional enumerator on ten
+  small instances) CANNOT close even one skeleton: block autocorrelation is negation-symmetric, so a
+  row's flat-autocorrelation system has only 6 independent exact conditions on 8 blocks ⇒ ~10¹⁵
+  admissible row-0 configurations per diagonal leaf × ~10⁷ diagonal leaves. The contradiction mass is
+  in cross-row equations that close too late for DFS. **Complete closure requires conflict-driven
+  learning** (or a new theorem).
+- **CDCL attempt**: improved class-level CP-SAT model (13 equations/pair instead of 37, forced
+  z-flags, i≤j only, pinning, a=4), validated on true positives (P(9), P(25), Petersen) and
+  brute-confirmed-empty anchors. Modal sweep over the 28 order-3 skeletons launched
+  (h668-order3-cpsat); outcome recorded below when complete.
+- **Twisted second moments (banked for v2)**: Tr(M₁Mᵤ) for u outside ±H is NOT in the collapse
+  algebra ⟨A,φ,J⟩; projection-overlap bounds give new inequality cuts linear in the near-multiplier
+  counts Σ #(D ∩ uD); machinery validated exactly on P(25) (Fourier identity 37F₀(u) − ΣR² and
+  overlap bounds). Usable as solver cuts if the CDCL sweep returns UNKNOWN.
+
+### 9b. Sweep outcome + multi-agent research round (2026-06-09 evening)
+
+- **Order-3 CP-SAT sweep outcome: all UNKNOWN.** Insurance run (4 canonical class reps, 7200s x 8
+  workers): 4/4 UNKNOWN. Main 28-rep sweep (9000s): consistent UNKNOWNs. Order 3 remains OPEN; the
+  paper records the calibrated attempt. Plain CDCL does not decide these instances at hour scale.
+- **46-agent research round** (`h668_new_doors_report.json`): 8-ansatz symmetry atlas + 8 literature
+  hunts + 10-idea tournament + adversarial verification. Highlights:
+  * **TOP PICK (gate VERIFIED locally, `selfcomp_check.cpp`): self-complementary Z37-symmetric
+    srg(333).** Exactly 3 of the 625 orbit-matrix classes are self-complementary (109, 221, 422);
+    all complementing permutations have cycle type (4,4,1), fixed orbit diag 18. Paley conference
+    graphs are all self-complementary — this is the natural Paley-like corner never searched.
+    Next: derive the twist-consistency system (sigma(i,g) = (pi(i), c*g + b_i), c in {+-6} order 4),
+    encode (~415 free bits after the verifier's antipodal-blocks correction), regression-test on
+    self-complementary Paley anchors, then 3 classes x twists on Modal.
+  * Candidate theorems to verify and bank (agent-produced, NOT yet self-verified): order-37
+    automorphisms of srg(333) are necessarily fixed-point-free; no fpf 3-power automorphism; unique
+    order-83 two-graph skeleton; two-circulant C(334) rigidity (D = -A forced); universal-solution
+    negatives (F37 code tower, pi-adic tower) extending the collapse theorem to the ramified prime.
+  * Literature: negacyclic C(334) may be closable by citation (Eades 1977 ANU thesis — RETRIEVE);
+    published DGS verification stops at v<=226. VeriPB/IPASIR-UP = sound machine-checkable
+    replacement for the retracted gauge trick. Kajiura-Matsumoto (arXiv:2512.24597) closed
+    (120,35,10) by quotient-coupling + quadratic ILP — structurally matched to 9x37. Resolve the
+    conflicting C(66)/Gritsenko (arXiv:2102.05432) claim before citing. No published work combines
+    orbit matrices with SAT certificates on ANY srg/two-graph parameter set.
+  * Obstruction-side meta-result: four more relaxation lenses (pi-adic, F37 codes, theta/lattices,
+    k-point SDP) proven universally feasible — every relaxation forgetting +-1-integrality is blind;
+    weak Bayesian evidence FOR existence. Annealed count: E_pairs(333) = 2^-1.37, threshold ~330:
+    LP(333) sits exactly at the existence threshold; retire unstructured search.
