@@ -70,8 +70,9 @@ class Model:
         neg = (kk % 2) == 1
         i, j = rep
         if i == j and e == 0:
-            # 0 not in any diagonal block: membership False; negated -> True
-            return (None, False, 1 if neg else 0)
+            # diagonal complement is taken in Z_p^* (0 excluded on BOTH sides of the relation),
+            # so 0 is in NO diagonal block regardless of chain parity: unconditionally False
+            return (None, False, 0)
         v = self.X[(rep, e)]
         return (v, neg, None)
 
