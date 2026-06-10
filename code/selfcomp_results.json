@@ -1,0 +1,146 @@
+[
+ {
+  "cls": 109,
+  "perm": [
+   1,
+   2,
+   8,
+   5,
+   7,
+   4,
+   6,
+   3,
+   0
+  ],
+  "status": "INFEASIBLE",
+  "sec": 6.4,
+  "verified": null,
+  "sol": null
+ },
+ {
+  "cls": 109,
+  "perm": [
+   8,
+   0,
+   1,
+   7,
+   5,
+   3,
+   6,
+   4,
+   2
+  ],
+  "status": "INFEASIBLE",
+  "sec": 8.1,
+  "verified": null,
+  "sol": null
+ },
+ {
+  "cls": 221,
+  "perm": [
+   1,
+   5,
+   3,
+   4,
+   8,
+   6,
+   0,
+   7,
+   2
+  ],
+  "status": "UNKNOWN",
+  "sec": 7203.9,
+  "verified": null,
+  "sol": null
+ },
+ {
+  "cls": 221,
+  "perm": [
+   6,
+   0,
+   8,
+   2,
+   3,
+   1,
+   5,
+   7,
+   4
+  ],
+  "status": "UNKNOWN",
+  "sec": 7203.0,
+  "verified": null,
+  "sol": null
+ },
+ {
+  "cls": 422,
+  "perm": [
+   1,
+   2,
+   8,
+   5,
+   6,
+   4,
+   3,
+   7,
+   0
+  ],
+  "status": "UNKNOWN",
+  "sec": 7203.8,
+  "verified": null,
+  "sol": null
+ },
+ {
+  "cls": 422,
+  "perm": [
+   1,
+   2,
+   8,
+   6,
+   5,
+   3,
+   4,
+   7,
+   0
+  ],
+  "status": "UNKNOWN",
+  "sec": 7203.6,
+  "verified": null,
+  "sol": null
+ },
+ {
+  "cls": 422,
+  "perm": [
+   8,
+   0,
+   1,
+   5,
+   6,
+   4,
+   3,
+   7,
+   2
+  ],
+  "status": "UNKNOWN",
+  "sec": 7203.8,
+  "verified": null,
+  "sol": null
+ },
+ {
+  "cls": 422,
+  "perm": [
+   8,
+   0,
+   1,
+   6,
+   5,
+   3,
+   4,
+   7,
+   2
+  ],
+  "status": "UNKNOWN",
+  "sec": 7203.6,
+  "verified": null,
+  "sol": null
+ }
+]
