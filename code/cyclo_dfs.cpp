@@ -72,6 +72,7 @@ static double maxSec = -1;
 static int chunkId = 0, nChunks = 1;
 static ll diagTaskIdx = 0, diagLeaves = 0;
 static bool permArg = false; static int permV[12];
+static FILE* fdump = nullptr; static ll maxDump = -1;
 
 static ll nodeCount = 0, solCount = 0;
 static bool stopFlag = false, hitCap = false;
@@ -648,6 +649,13 @@ static void dfs(int b){
         }
         if (!diagEqAdaptiveOK()) return;
         diagLeaves++;
+        if (fdump){
+            for (int i = 0; i < NORB; i++)
+                fprintf(fdump, "%llu%c", (unsigned long long)cands[blkOf[i][i]][assigned[blkOf[i][i]]].mask,
+                        i + 1 == NORB ? '\n' : ' ');
+            if (maxDump > 0 && diagLeaves >= maxDump){ stopFlag = true; hitCap = true; }
+            return;
+        }
         if (countDiag) return;
         if (nChunks > 1 && (diagTaskIdx++ % nChunks) != chunkId) return;
         // fall through to first off-diag block
@@ -703,6 +711,8 @@ int main(int argc, char** argv){
         else if (!strcmp(argv[a], "--quiet")) quiet = true;
         else if (!strcmp(argv[a], "--solfile")) fsol = fopen(argv[++a], "w");
         else if (!strcmp(argv[a], "--count-diag")) countDiag = true;
+        else if (!strcmp(argv[a], "--dump-diag")) fdump = fopen(argv[++a], "w");
+        else if (!strcmp(argv[a], "--maxdump")) maxDump = atoll(argv[++a]);
         else if (!strcmp(argv[a], "--perm")){
             char* s = argv[++a];
             for (int t = 0; t < 12; t++) permV[t] = t;
