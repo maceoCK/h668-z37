@@ -251,10 +251,12 @@ print("""  THE POINT: 6!/|Aut| was computable only AFTER finding the object and 
   a mass-formula contradiction would need an a-priori value for a number that is only
   defined through the classification itself.  CIRCULAR => cannot fire.""")
 
-# 3d. growth of known conference-graph counts (literature, Brouwer tables)
+# 3d. growth of known conference-graph counts (literature: Brouwer srg tables / Spence pages)
 print("""
-3d. Known conference-graph counts (Brouwer's srg tables; existence counts up to iso):
-   v=5:1   v=9:1   v=13:1   v=17:1   v=25:15   v=29:41   v=37:6760   v=45: ≥78   v=49: ≥1.4e6(est)
+3d. Known conference-graph counts up to iso (Brouwer tables; Spence www.maths.gla.ac.uk/~es/):
+   v=5:1   v=9:1   v=13:1   v=17:1   v=25:15 (complete)   v=29:41 (complete, Spence)
+   v=37: ≥6760 ('very likely not exhaustive', Spence)   v=45: ≥78
+   => complete-classification frontier for conference graphs: v=29 (two-graphs: n=30).
    => super-exponential explosion. Heuristic expectation at v=333: 0 or >10^thousands.
    The project's annealed count E_pairs(333)=2^-1.37 sits AT threshold: counting heuristics
    CANNOT distinguish 0 from astronomical -- in either direction. A counting PROOF of 0 would
@@ -283,21 +285,49 @@ print("""  The cyclotomic sweep (5072 jobs, all INFEASIBLE) closed only the mult
   is NOT 625 CP-SAT calls; it is 625 instances each individually beyond unstructured exhaustion.""")
 
 print(E); print("LAYER 4: Lam-style cost model -- C(334) vs every successful exhaustion ever done"); print(E)
-log2_C334 = P333*1.0   # log2 of labeled two-graph count
 print(f"""
 Anchors (all literature-verified, URLs in report):
-  PG(2,10), Lam-Thiel-Swiercz 1989:   ~2,000-3,000 h Cray-1A + yrs of workstations;
-     enabled by a SELF-DUAL-type binary code forcing countable w12/w16/w19 substructures.
-     Effective search ~10^14-10^15 ops on a space pre-collapsed by the code. NO ANALOGUE at C(334) (Layer 2).
-  srg(75,32,10,16) & srg(95,40,12,20), Azarija-Marc 2015/2018: the ONLY feasible-parameter
-     srg exhaustions ever completed; v<=95, INTEGER eigenvalues (eigenvalue-multiplicity
-     structure 56/18 etc. gives strong orderly-generation pruning); months-years of CPU.
-  Conference matrices: smallest UNRESOLVED orders 66 and 86 -- open for ~60 years.
-     C(46) classification (Bussemaker-Mathon-Seidel + later) is the largest completed.
-  Regular two-graphs: complete classification stops at n=38 (McKay-Spence: 191 on 38 points;
-     on 46 points only partial, >=97).   334 is NOT adjacent to any frontier: it is
-     {334-38} points beyond the last classified order.
+  PG(2,10), Lam-Thiel-Swiercz 1989 (Canad. J. Math 41, 1117-1123): ~2.7 months Cray-1A
+     for the weight-19 case alone (+ yrs of workstations; ovals case 4400h VAX 11/780);
+     enabled by a self-orthogonal binary code forcing countable w12/w16/w19 substructures.
+     NO ANALOGUE exists at C(334) (Layer 2: p=2 code provably trivial, p=3 not self-dual).
+  srg(75,32,10,16) & srg(95,40,12,20), Azarija-Marc (arXiv:1509.05933, 1603.02032): the
+     ONLY feasible-parameter srg exhaustions ever completed. Their skeleton: INTEGER
+     eigenvalue r=2 of multiplicity 56 (resp. 75) => star complement of order 19 (resp. 20);
+     plus a FORCED count >=783 of 4-cliques (Bondarenko-Prymak-Radchenko) to seed the search;
+     feasibility hinged on reducing every candidate to <=19 vertices ('n(G)-k2(G) >= 17').
+  Conference matrices: known for all admissible orders through 62; smallest UNRESOLVED
+     order 86 (66 modulo a disputed 2021 construction claim, arXiv:2102.05432) --
+     open for ~60 years at orders two hundred-some below 334.
+  Regular two-graphs: complete classification stops at n=36 (McKay-Spence 2001: exactly 227);
+     n=38 only bounded (>=191, new ones still being found in 2023). Conference-class
+     frontier n=30. 334 is ~300 points beyond every classification frontier.""")
 
+# 4b. WHY the one successful srg technique provably cannot fire here: star complement scaling
+print("4b. Star-complement scaling (exact):")
+def srg_mults(v_,k_,l_,m_):
+    D = (l_-m_)**2 + 4*(k_-m_); sD = sp.sqrt(D)
+    r_ = (l_-m_+sD)/2; s_ = (l_-m_-sD)/2
+    f_ = sp.Rational(1,2)*((v_-1) - (2*k_+(v_-1)*(l_-m_))/sD)
+    g_ = (v_-1) - f_
+    return r_, s_, sp.nsimplify(f_), sp.nsimplify(g_)
+for (v_,k_,l_,m_) in [(75,32,10,16),(95,40,12,20),(333,166,82,83)]:
+    r_, s_, f_, g_ = srg_mults(v_,k_,l_,m_)
+    mmax = max(f_, g_, key=lambda t: float(t))
+    sc = v_ - int(mmax)
+    print(f"  srg{(v_,k_,l_,m_)}: eigenvalues {sp.nsimplify(r_)},{sp.nsimplify(s_)}; mults {f_}/{g_};"
+          f" star complement order v-max(f,g) = {sc};  raw complement space 2^C({sc},2) = 2^{comb(sc,2)}"
+          f" ≈ 10^{comb(sc,2)*log10(2):.0f}")
+check("  conference parameters MAXIMIZE star-complement order: for every srg, max(f,g) >= (v-1)/2 "
+      "with equality iff f=g (conference); so sc order = 167 = (v+1)/2 is the worst case possible "
+      "on 333 vertices", max(166,166) == (333-1)//2)
+print("""  => the Azarija-Marc engine needed order-19/20 star complements (2^171 raw, pruned);
+     at (333,166,82,83) the star complement has 167 vertices (2^13861 raw) and the
+     eigenvalue (-1+3√37)/2 is irrational (compatibility graph over Q(√37), no integral
+     clique machinery). The unique technique that ever closed a feasible srg parameter
+     set is structurally maximally mismatched to conference parameters. CANNOT FIRE.""")
+
+print(f"""
 Magnitudes at C(334) (exact):
   raw labeled two-graph space:        2^{P333} ≈ 10^{P333*log10_2:.0f}
   after FULL hypothetical Lam-grade pruning (PG(2,10) collapsed ~10^600-raw to ~10^15,
