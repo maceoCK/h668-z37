@@ -1,0 +1,230 @@
+[
+ {
+  "cls": 221,
+  "perm": [
+   1,
+   5,
+   3,
+   4,
+   8,
+   6,
+   0,
+   7,
+   2
+  ],
+  "branch": "QR",
+  "status": "UNKNOWN",
+  "sec": 9000.6,
+  "verified": null,
+  "sol": null
+ },
+ {
+  "cls": 221,
+  "perm": [
+   1,
+   5,
+   3,
+   4,
+   8,
+   6,
+   0,
+   7,
+   2
+  ],
+  "branch": "QNR",
+  "status": "UNKNOWN",
+  "sec": 9000.4,
+  "verified": null,
+  "sol": null
+ },
+ {
+  "cls": 221,
+  "perm": [
+   6,
+   0,
+   8,
+   2,
+   3,
+   1,
+   5,
+   7,
+   4
+  ],
+  "branch": "QR",
+  "status": "UNKNOWN",
+  "sec": 9000.5,
+  "verified": null,
+  "sol": null
+ },
+ {
+  "cls": 221,
+  "perm": [
+   6,
+   0,
+   8,
+   2,
+   3,
+   1,
+   5,
+   7,
+   4
+  ],
+  "branch": "QNR",
+  "status": "UNKNOWN",
+  "sec": 9001.2,
+  "verified": null,
+  "sol": null
+ },
+ {
+  "cls": 422,
+  "perm": [
+   1,
+   2,
+   8,
+   5,
+   6,
+   4,
+   3,
+   7,
+   0
+  ],
+  "branch": "QR",
+  "status": "UNKNOWN",
+  "sec": 9000.3,
+  "verified": null,
+  "sol": null
+ },
+ {
+  "cls": 422,
+  "perm": [
+   1,
+   2,
+   8,
+   5,
+   6,
+   4,
+   3,
+   7,
+   0
+  ],
+  "branch": "QNR",
+  "status": "UNKNOWN",
+  "sec": 9000.3,
+  "verified": null,
+  "sol": null
+ },
+ {
+  "cls": 422,
+  "perm": [
+   1,
+   2,
+   8,
+   6,
+   5,
+   3,
+   4,
+   7,
+   0
+  ],
+  "branch": "QR",
+  "status": "UNKNOWN",
+  "sec": 9000.3,
+  "verified": null,
+  "sol": null
+ },
+ {
+  "cls": 422,
+  "perm": [
+   1,
+   2,
+   8,
+   6,
+   5,
+   3,
+   4,
+   7,
+   0
+  ],
+  "branch": "QNR",
+  "status": "UNKNOWN",
+  "sec": 9000.6,
+  "verified": null,
+  "sol": null
+ },
+ {
+  "cls": 422,
+  "perm": [
+   8,
+   0,
+   1,
+   5,
+   6,
+   4,
+   3,
+   7,
+   2
+  ],
+  "branch": "QR",
+  "status": "UNKNOWN",
+  "sec": 9000.3,
+  "verified": null,
+  "sol": null
+ },
+ {
+  "cls": 422,
+  "perm": [
+   8,
+   0,
+   1,
+   5,
+   6,
+   4,
+   3,
+   7,
+   2
+  ],
+  "branch": "QNR",
+  "status": "UNKNOWN",
+  "sec": 9000.3,
+  "verified": null,
+  "sol": null
+ },
+ {
+  "cls": 422,
+  "perm": [
+   8,
+   0,
+   1,
+   6,
+   5,
+   3,
+   4,
+   7,
+   2
+  ],
+  "branch": "QR",
+  "status": "UNKNOWN",
+  "sec": 9000.3,
+  "verified": null,
+  "sol": null
+ },
+ {
+  "cls": 422,
+  "perm": [
+   8,
+   0,
+   1,
+   6,
+   5,
+   3,
+   4,
+   7,
+   2
+  ],
+  "branch": "QNR",
+  "status": "UNKNOWN",
+  "sec": 9000.5,
+  "verified": null,
+  "sol": null
+ }
+]
