@@ -179,7 +179,7 @@ do **not** ship a `hadamard_668.csv`: none was found, and none is claimed.
   title  = {A {$\mathbb{Z}_{37}$} reduction and cyclotomic nonexistence results
             for the conference graph of {H(668)}},
   year   = {2026},
-  note   = {arXiv preprint; code at https://github.com/maceoCK/h668-z37},
+  note   = {Preprint; paper and code at https://github.com/maceoCK/h668-z37},
 }
 ```
 
